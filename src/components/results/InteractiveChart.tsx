@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 import {
   THERMAL_RESISTANCE_VS_FLUX_DATA,
   PRESSURE_DROP_VS_FLOW_DATA,
@@ -6,6 +7,7 @@ import {
 } from '../../data/resultsData';
 
 export const InteractiveChart: React.FC = () => {
+  const { theme } = useTheme();
   const [activeGraph, setActiveGraph] = useState<'resistance' | 'pressure' | 'hotspot'>('resistance');
   const [hoveredPointIndex, setHoveredPointIndex] = useState<number | null>(null);
 
@@ -91,7 +93,7 @@ export const InteractiveChart: React.FC = () => {
           </h4>
         </div>
 
-        <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-[#DCE4EE] dark:border-slate-800 text-xs font-mono">
           <button
             onClick={() => {
               setActiveGraph('resistance');
@@ -99,8 +101,10 @@ export const InteractiveChart: React.FC = () => {
             }}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               activeGraph === 'resistance'
-                ? 'bg-dtc-cyan text-black font-semibold'
-                : 'text-slate-400 hover:text-white'
+                ? theme === 'dark'
+                  ? 'bg-dtc-cyan text-black font-semibold'
+                  : 'bg-blue-600 text-white font-semibold shadow-sm'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
             }`}
           >
             Thermal Resistance
@@ -112,8 +116,8 @@ export const InteractiveChart: React.FC = () => {
             }}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               activeGraph === 'pressure'
-                ? 'bg-amber-500 text-black font-semibold'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-amber-500 text-black font-semibold shadow-sm'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
             }`}
           >
             Pressure Drop
@@ -125,8 +129,8 @@ export const InteractiveChart: React.FC = () => {
             }}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               activeGraph === 'hotspot'
-                ? 'bg-dtc-hot text-white font-semibold'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-red-600 dark:bg-dtc-hot text-white font-semibold shadow-sm'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
             }`}
           >
             Hotspot Delta
@@ -135,7 +139,7 @@ export const InteractiveChart: React.FC = () => {
       </div>
 
       {/* Interactive SVG Chart */}
-      <div className="relative w-full overflow-x-auto bg-slate-100 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-900 select-none">
+      <div className="relative w-full overflow-x-auto bg-slate-100 dark:bg-slate-950 p-4 rounded-2xl border border-[#DCE4EE] dark:border-slate-900 select-none shadow-inner">
         <svg viewBox={`0 0 ${chartW} ${chartH}`} className="w-full h-auto min-w-[500px]">
           {/* Grid lines */}
           {Array.from({ length: 5 }).map((_, i) => {
@@ -148,13 +152,13 @@ export const InteractiveChart: React.FC = () => {
                   y1={yPos}
                   x2={padL + plotW}
                   y2={yPos}
-                  className="stroke-slate-300 dark:stroke-white/10"
+                  stroke={theme === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(11, 18, 32, 0.08)'}
                   strokeDasharray="4 4"
                 />
                 <text
                   x={padL - 8}
                   y={yPos + 4}
-                  className="fill-slate-500 dark:fill-[#64748b]"
+                  fill={theme === 'dark' ? '#64748b' : '#526174'}
                   fontSize="9"
                   fontFamily="monospace"
                   textAnchor="end"
@@ -173,7 +177,7 @@ export const InteractiveChart: React.FC = () => {
                 key={idx}
                 x={getX(pt.x)}
                 y={padT + plotH + 18}
-                className="fill-slate-500 dark:fill-[#64748b]"
+                fill={theme === 'dark' ? '#64748b' : '#526174'}
                 fontSize="9"
                 fontFamily="monospace"
                 textAnchor="middle"
@@ -187,17 +191,18 @@ export const InteractiveChart: React.FC = () => {
           <path
             d={monoPath}
             fill="none"
-            className="stroke-dtc-hot"
+            stroke="#FF3B30"
             strokeWidth="2.5"
             strokeDasharray="6 4"
           />
 
-          {/* H-ASP Proposed Curve (Solid Glowing Cyan) */}
+          {/* H-ASP Proposed Curve (Solid Glowing Cyan in dark, Technical Blue in light) */}
           <path
             d={haspPath}
             fill="none"
-            className="stroke-dtc-cyan"
+            stroke={theme === 'dark' ? '#00F0FF' : '#2563EB'}
             strokeWidth="3"
+            filter={theme === 'dark' ? 'drop-shadow(0 0 6px rgba(0,240,255,0.6))' : 'drop-shadow(0 2px 4px rgba(37,99,235,0.3))'}
           />
 
           {/* Data Points */}

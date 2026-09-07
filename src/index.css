@@ -2,183 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Variables for Dynamic Light & Dark Mode */
 :root {
   color-scheme: light;
-
-  /* Inverted Slate Scale for Light Mode: Cleanroom Lab / Technical CAD Whitepaper */
-  --slate-50: 15 23 42;      /* Deepest slate for reverse text */
-  --slate-100: 15 23 42;     /* #0F172A: Primary headings & titles */
-  --slate-200: 30 41 59;     /* #1E293B: Sub-headings */
-  --slate-300: 51 65 85;     /* #334155: Body paragraphs */
-  --slate-400: 71 85 105;    /* #475569: Secondary text / descriptions */
-  --slate-500: 100 116 139;  /* #64748B: Metadata, telemetry labels */
-  --slate-600: 148 163 184;  /* #94A3B8 */
-  --slate-700: 203 213 225;  /* #CBD5E1: Subtle border */
-  --slate-800: 226 232 240;  /* #E2E8F0: Card borders & surface wells */
-  --slate-900: 255 255 255;  /* #FFFFFF: Crisp white card backgrounds */
-  --slate-950: 241 245 249;  /* #F1F5F9: Section alternating background */
-
-  /* Direct-to-Chip Project Colors: Light Mode */
-  --dtc-bg: 248 250 252;     /* #F8FAFC: Titanium cleanroom canvas */
-  --dtc-card: 255 255 255;   /* #FFFFFF: Pure white card */
-  --dtc-surface: 241 245 249;/* #F1F5F9: Titanium well */
-  --dtc-border: rgba(15, 23, 42, 0.08);
-  --dtc-border-glow: rgba(2, 132, 199, 0.35);
-  --dtc-cyan: 2 132 199;     /* #0284C7: Precision technical blueprint sky cyan */
-  --dtc-cyan-dim: rgba(2, 132, 199, 0.10);
-  --dtc-blue: 29 78 216;     /* #1D4ED8 */
-  --dtc-hot: 220 38 38;      /* #DC2626: Cadmium laboratory thermal red */
-  --dtc-hot-dim: rgba(220, 38, 38, 0.10);
-  --dtc-warm: 217 119 6;     /* #D97706: Technical amber */
-  --dtc-warm-dim: rgba(217, 119, 6, 0.10);
-  --dtc-green: 5 150 105;    /* #059669 */
-  --dtc-gold: 217 119 6;
-  --dtc-copper: 154 52 18;   /* #9A3412 */
-
-  --hud-corner-color: #0284C7;
-  --glass-bg: rgba(255, 255, 255, 0.94);
-  --glass-border: rgba(15, 23, 42, 0.08);
-  --glass-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-  --grid-line: rgba(15, 23, 42, 0.04);
-  --scroll-track: #F1F5F9;
-  --scroll-thumb: #CBD5E1;
-  --scroll-thumb-hover: #0284C7;
+  --bg-primary: #F5F8FC;
+  --bg-secondary: #EAF0F7;
+  --card-bg: #FFFFFF;
+  --card-border: #DCE4EE;
+  --card-border-hover: #CBD5E1;
+  --text-primary: #0B1220;
+  --text-secondary: #526174;
+  --text-muted: #64748B;
+  --primary: #2563EB;
+  --coolant: #06B6D4;
+  --thermal: #F97316;
+  --thermal-hot: #EF4444;
+  --nav-bg: rgba(245, 248, 252, 0.82);
+  --nav-scrolled: rgba(255, 255, 255, 0.94);
+  --nav-border: #DCE4EE;
+  --card-shadow: 0 8px 30px rgba(11, 18, 32, 0.05);
+  --card-shadow-hover: 0 12px 35px rgba(37, 99, 235, 0.08);
 }
 
-html.dark {
+.dark {
   color-scheme: dark;
-
-  /* Standard Slate Scale for Dark Mode: Telemetry Cleanroom */
-  --slate-50: 248 250 252;
-  --slate-100: 241 245 249;  /* #F1F5F9 */
-  --slate-200: 226 232 240;  /* #E2E8F0 */
-  --slate-300: 203 213 225;  /* #CBD5E1 */
-  --slate-400: 148 163 184;  /* #94A3B8 */
-  --slate-500: 100 116 139;  /* #64748B */
-  --slate-600: 71 85 105;    /* #475569 */
-  --slate-700: 51 65 85;     /* #334155 */
-  --slate-800: 30 41 59;     /* #1E293B */
-  --slate-900: 15 23 42;     /* #0F172A */
-  --slate-950: 2 6 23;       /* #020617 */
-
-  /* Direct-to-Chip Project Colors: Dark Mode */
-  --dtc-bg: 5 7 11;          /* #05070B */
-  --dtc-card: 11 15 23;      /* #0B0F17 */
-  --dtc-surface: 16 23 38;   /* #101726 */
-  --dtc-border: rgba(255, 255, 255, 0.08);
-  --dtc-border-glow: rgba(0, 240, 255, 0.25);
-  --dtc-cyan: 0 240 255;     /* #00F0FF */
-  --dtc-cyan-dim: rgba(0, 240, 255, 0.15);
-  --dtc-blue: 37 99 235;     /* #2563EB */
-  --dtc-hot: 255 59 48;      /* #FF3B30 */
-  --dtc-hot-dim: rgba(255, 59, 48, 0.15);
-  --dtc-warm: 255 149 0;     /* #FF9500 */
-  --dtc-warm-dim: rgba(255, 149, 0, 0.15);
-  --dtc-green: 16 185 129;   /* #10B981 */
-  --dtc-gold: 251 191 36;
-  --dtc-copper: 184 115 51;  /* #B87333 */
-
-  --hud-corner-color: #00F0FF;
-  --glass-bg: rgba(11, 15, 23, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: none;
-  --grid-line: rgba(255, 255, 255, 0.03);
-  --scroll-track: #07090e;
-  --scroll-thumb: #1e293b;
-  --scroll-thumb-hover: #00f0ff;
+  --bg-primary: #05070B;
+  --bg-secondary: #080C14;
+  --card-bg: #0B0F17;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-hover: rgba(0, 240, 255, 0.3);
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --primary: #00F0FF;
+  --coolant: #00F0FF;
+  --thermal: #FF9500;
+  --thermal-hot: #FF3B30;
+  --nav-bg: rgba(5, 7, 11, 0.5);
+  --nav-scrolled: rgba(5, 7, 11, 0.88);
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --card-shadow-hover: 0 14px 40px rgba(0, 240, 255, 0.15);
 }
 
-/* Global Seamless Transitions for All Theme Elements */
-html,
+/* Smooth OS-Style Theme Transitions */
 body,
 header,
 main,
-footer,
 section,
-div,
-button,
-span,
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-input,
-svg,
-table,
-tr,
-td,
-th {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-  transition-duration: 280ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Exclude active canvas and sliders from transition lag */
-canvas,
-input[type="range"],
-input[type="range"]::-webkit-slider-thumb {
-  transition: none !important;
-}
-
-/* Base body background & text */
-body {
-  background-color: rgb(var(--dtc-bg));
-  color: rgb(var(--slate-100));
-}
-
-/* Standalone text-white adaptation in light mode */
-html:not(.dark) .text-white {
-  color: #0F172A;
-}
-
-/* Keep text white inside solid colored action elements */
-html:not(.dark) button.bg-dtc-cyan,
-html:not(.dark) button.bg-dtc-hot,
-html:not(.dark) .btn-primary,
-html:not(.dark) .btn-thermal,
-html:not(.dark) [class*="bg-sky-"],
-html:not(.dark) [class*="bg-blue-"],
-html:not(.dark) [class*="bg-red-"],
-html:not(.dark) [class*="bg-emerald-"],
-html:not(.dark) [class*="bg-amber-"] {
-  color: #FFFFFF !important;
-}
-
-html:not(.dark) button.bg-dtc-cyan *,
-html:not(.dark) button.bg-dtc-hot *,
-html:not(.dark) .btn-primary *,
-html:not(.dark) .btn-thermal *,
-html:not(.dark) [class*="bg-sky-"] *,
-html:not(.dark) [class*="bg-blue-"] *,
-html:not(.dark) [class*="bg-red-"] *,
-html:not(.dark) [class*="bg-emerald-"] * {
-  color: #FFFFFF !important;
-}
-
-/* Transparent black and white overlays in light mode */
-html:not(.dark) .border-white\/5,
-html:not(.dark) .border-white\/10,
-html:not(.dark) .border-white\/20 {
-  border-color: rgba(15, 23, 42, 0.08) !important;
-}
-
-html:not(.dark) .border-white\/80 {
-  border-color: rgba(15, 23, 42, 0.25) !important;
-}
-
-html:not(.dark) .bg-black\/10,
-html:not(.dark) .bg-black\/20,
-html:not(.dark) .bg-black\/40,
-html:not(.dark) .bg-black\/50,
-html:not(.dark) .bg-black\/60 {
-  background-color: rgba(15, 23, 42, 0.04) !important;
-}
-
-html:not(.dark) .bg-black {
-  background-color: #FFFFFF !important;
+footer,
+nav,
+.glass-panel,
+.glass-panel-glow,
+.glass-panel-hot {
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
 }
 
 /* Custom Scrollbar */
@@ -187,52 +68,101 @@ html:not(.dark) .bg-black {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--scroll-track);
+  background: #F5F8FC;
 }
+.dark ::-webkit-scrollbar-track {
+  background: #07090e;
+}
+
 ::-webkit-scrollbar-thumb {
-  background: var(--scroll-thumb);
+  background: #CBD5E1;
   border-radius: 3px;
 }
+.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--scroll-thumb-hover);
+  background: #2563EB;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
 }
 
 /* Technical grid background */
 .bg-tech-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    linear-gradient(to right, rgba(11, 18, 32, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 18, 32, 0.05) 1px, transparent 1px);
+}
+.dark .bg-tech-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
 .bg-tech-dots {
-  background-image: radial-gradient(var(--dtc-cyan-dim) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(37, 99, 235, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dark .bg-tech-dots {
+  background-image: radial-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-/* Glassmorphic card surface */
+/* Glassmorphic card surfaces */
 .glass-panel {
-  background: var(--glass-bg);
+  background: #FFFFFF;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #DCE4EE;
+  box-shadow: 0 8px 30px rgba(11, 18, 32, 0.05);
+}
+.glass-panel:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 35px rgba(37, 99, 235, 0.08);
+}
+
+.dark .glass-panel {
+  background: rgba(11, 15, 23, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+.dark .glass-panel:hover {
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.2);
 }
 
 .glass-panel-glow {
-  background: var(--glass-bg);
+  background: #FFFFFF;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--dtc-border-glow);
-  box-shadow: 0 0 25px -5px var(--dtc-cyan-dim);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.1);
+}
+.dark .glass-panel-glow {
+  background: rgba(11, 15, 23, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 30px -10px rgba(0, 240, 255, 0.15);
 }
 
 .glass-panel-hot {
-  background: var(--glass-bg);
+  background: #FFFFFF;
   backdrop-filter: blur(20px);
-  border: 1px solid var(--dtc-hot-dim);
-  box-shadow: 0 0 25px -5px var(--dtc-hot-dim);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  box-shadow: 0 8px 30px rgba(249, 115, 22, 0.1);
+}
+.dark .glass-panel-hot {
+  background: rgba(15, 11, 12, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 59, 48, 0.25);
+  box-shadow: 0 0 30px -10px rgba(255, 59, 48, 0.2);
 }
 
 /* Technical HUD Borders */
@@ -246,10 +176,9 @@ html:not(.dark) .bg-black {
   left: -1px;
   width: 8px;
   height: 8px;
-  border-top: 2px solid var(--hud-corner-color);
-  border-left: 2px solid var(--hud-corner-color);
+  border-top: 2px solid #2563EB;
+  border-left: 2px solid #2563EB;
   pointer-events: none;
-  transition: border-color 0.3s ease;
 }
 .hud-corner::after {
   content: '';
@@ -258,21 +187,32 @@ html:not(.dark) .bg-black {
   right: -1px;
   width: 8px;
   height: 8px;
-  border-bottom: 2px solid var(--hud-corner-color);
-  border-right: 2px solid var(--hud-corner-color);
+  border-bottom: 2px solid #2563EB;
+  border-right: 2px solid #2563EB;
   pointer-events: none;
-  transition: border-color 0.3s ease;
+}
+
+.dark .hud-corner::before {
+  border-top-color: #00F0FF;
+  border-left-color: #00F0FF;
+}
+.dark .hud-corner::after {
+  border-bottom-color: #00F0FF;
+  border-right-color: #00F0FF;
 }
 
 /* Custom range slider styling */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: var(--dtc-border);
+  background: #DCE4EE;
   border-radius: 9999px;
   height: 6px;
   outline: none;
   cursor: pointer;
+}
+.dark input[type="range"] {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -281,25 +221,39 @@ input[type="range"]::-webkit-slider-thumb {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--dtc-cyan);
-  box-shadow: 0 0 10px var(--dtc-cyan-dim);
+  background: #2563EB;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.dark input[type="range"]::-webkit-slider-thumb {
+  background: #00F0FF;
+  box-shadow: 0 0 10px #00F0FF;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 16px var(--dtc-cyan);
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.8);
+}
+.dark input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 16px #00F0FF;
 }
 
 input[type="range"].slider-thermal::-webkit-slider-thumb {
-  background: var(--dtc-hot);
-  box-shadow: 0 0 10px var(--dtc-hot-dim);
+  background: #F97316;
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+.dark input[type="range"].slider-thermal::-webkit-slider-thumb {
+  background: #FF3B30;
+  box-shadow: 0 0 10px #FF3B30;
 }
 
 input[type="range"].slider-thermal::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 16px var(--dtc-hot);
+  box-shadow: 0 0 16px rgba(249, 115, 22, 0.8);
+}
+.dark input[type="range"].slider-thermal::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 16px #FF3B30;
 }
 
 /* Animated fluid gradient */
@@ -314,22 +268,13 @@ input[type="range"].slider-thermal::-webkit-slider-thumb:hover {
   animation: fluidMove 6s ease infinite;
 }
 
-/* Scanline effect overlay */
-.scanlines {
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(255,255,255,0) 50%,
-    rgba(0, 0, 0, 0.25) 50%,
-    rgba(0, 0, 0, 0.25)
-  );
-  background-size: 100% 4px;
-}
-
 /* Accessible focus ring */
 *:focus-visible {
-  outline: 2px solid var(--dtc-cyan);
+  outline: 2px solid #2563EB;
   outline-offset: 2px;
+}
+.dark *:focus-visible {
+  outline-color: #00F0FF;
 }
 
 /* Respect Reduced Motion */
@@ -340,4 +285,79 @@ input[type="range"].slider-thermal::-webkit-slider-thumb:hover {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Light Theme Semantic Mapping for Technical Aerospace / AI Hardware aesthetic */
+:root:not(.dark) body {
+  background-color: #F5F8FC;
+  color: #0B1220;
+}
+
+:root:not(.dark) .bg-dtc-bg {
+  background-color: #F5F8FC;
+}
+
+/* Alternating section backgrounds */
+:root:not(.dark) .bg-slate-950,
+:root:not(.dark) .bg-slate-950\/80,
+:root:not(.dark) .bg-slate-950\/90,
+:root:not(.dark) .bg-slate-950\/60 {
+  background-color: #EAF0F7;
+}
+
+:root:not(.dark) .bg-slate-900,
+:root:not(.dark) .bg-slate-900\/90,
+:root:not(.dark) .bg-slate-900\/80,
+:root:not(.dark) .bg-slate-900\/60 {
+  background-color: #FFFFFF;
+}
+
+:root:not(.dark) .border-slate-800,
+:root:not(.dark) .border-slate-900,
+:root:not(.dark) .border-slate-800\/80,
+:root:not(.dark) .border-slate-800\/90,
+:root:not(.dark) .border-slate-700,
+:root:not(.dark) .border-slate-700\/80,
+:root:not(.dark) .border-white\/10,
+:root:not(.dark) .border-white\/5 {
+  border-color: #DCE4EE;
+}
+
+/* Text Hierarchy in Light Mode */
+:root:not(.dark) h1.text-white,
+:root:not(.dark) h2.text-white,
+:root:not(.dark) h3.text-white,
+:root:not(.dark) h4.text-white,
+:root:not(.dark) .text-white:not(.keep-white):not(.btn-text-white),
+:root:not(.dark) .text-slate-100:not(.keep-white):not(.btn-text-white) {
+  color: #0B1220;
+}
+
+:root:not(.dark) .text-slate-200:not(.keep-white),
+:root:not(.dark) .text-slate-300:not(.keep-white) {
+  color: #334155;
+}
+
+:root:not(.dark) .text-slate-400 {
+  color: #526174;
+}
+
+:root:not(.dark) .text-slate-500 {
+  color: #64748B;
+}
+
+/* Light mode primary technical accent */
+:root:not(.dark) .text-dtc-cyan:not(.keep-colored) {
+  color: #2563EB;
+}
+
+:root:not(.dark) .border-dtc-cyan,
+:root:not(.dark) .border-dtc-cyan\/30,
+:root:not(.dark) .border-dtc-cyan\/40 {
+  border-color: rgba(37, 99, 235, 0.4);
+}
+
+:root:not(.dark) .bg-dtc-cyan\/10,
+:root:not(.dark) .bg-dtc-cyan\/15 {
+  background-color: rgba(37, 99, 235, 0.08);
 }

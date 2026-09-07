@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Common Components
 import { BootLoader } from './components/common/BootLoader';
@@ -28,7 +29,6 @@ import { ProjectJourney } from './components/roadmap/ProjectJourney';
 import { TechStackShowcase } from './components/developer/TechStackShowcase';
 import { TeamSection } from './components/developer/TeamSection';
 import { FinalCTA } from './components/cta/FinalCTA';
-import { ThemeToggle } from './components/common/ThemeToggle';
 
 export function App() {
   const [bootComplete, setBootComplete] = useState<boolean>(() => {
@@ -36,91 +36,90 @@ export function App() {
   });
 
   return (
-    <div className="min-h-screen bg-dtc-bg text-slate-900 dark:text-slate-100 flex flex-col selection:bg-dtc-cyan selection:text-black transition-colors duration-300">
-      {/* High-tech Diagnostic Boot Sequence */}
-      <AnimatePresence>
-        {!bootComplete && <BootLoader onComplete={() => setBootComplete(true)} />}
-      </AnimatePresence>
+    <ThemeProvider>
+      <div className="min-h-screen bg-dtc-bg text-[#0B1220] dark:text-slate-100 flex flex-col selection:bg-blue-500 selection:text-white dark:selection:bg-dtc-cyan dark:selection:text-black">
+        {/* High-tech Diagnostic Boot Sequence */}
+        <AnimatePresence>
+          {!bootComplete && <BootLoader onComplete={() => setBootComplete(true)} />}
+        </AnimatePresence>
 
-      {/* Main App Navigation */}
-      <Navbar />
+        {/* Main App Navigation */}
+        <Navbar />
 
-      {/* Floating Theme Quick Switcher for anytime access */}
-      <ThemeToggle variant="floating" />
+        {/* Interactive Case Study Content */}
+        <main className="flex-1 w-full overflow-hidden">
+          {/* 1. Hero & Visual Telemetry */}
+          <Hero />
 
-      {/* Interactive Case Study Content */}
-      <main className="flex-1 w-full overflow-hidden">
-        {/* 1. Hero & Visual Telemetry */}
-        <Hero />
+          {/* 2. Horizontal Project Snapshot */}
+          <ProjectSnapshot />
 
-        {/* 2. Horizontal Project Snapshot */}
-        <ProjectSnapshot />
+          {/* 3. The Problem & Thermal Load Simulator */}
+          <ProblemSection />
 
-        {/* 3. The Problem & Thermal Load Simulator */}
-        <ProblemSection />
+          {/* 4. Traditional vs DTC Comparison */}
+          <TraditionalVsDTC />
 
-        {/* 4. Traditional vs DTC Comparison */}
-        <TraditionalVsDTC />
+          {/* 5. Before / After Thermal Extraction */}
+          <BeforeAfterSlider />
 
-        {/* 5. Before / After Thermal Extraction */}
-        <BeforeAfterSlider />
+          {/* 6. H-ASP 3-Zone Architecture & Shortened Thermal Path */}
+          <SolutionSection />
 
-        {/* 6. H-ASP 3-Zone Architecture & Shortened Thermal Path */}
-        <SolutionSection />
+          {/* 7. CAD Cold Plate Explorer */}
+          <ColdPlateExplorer />
 
-        {/* 7. CAD Cold Plate Explorer */}
-        <ColdPlateExplorer />
+          {/* 8. Internal Microchannel Streamlines Cross-Section */}
+          <section className="py-12 bg-dtc-bg border-t border-[#DCE4EE] dark:border-slate-900">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <FlowCrossSection />
+            </div>
+          </section>
 
-        {/* 8. Internal Microchannel Streamlines Cross-Section */}
-        <section className="py-12 bg-dtc-bg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FlowCrossSection />
-          </div>
-        </section>
+          {/* 9. 3D Exploded View Assembly */}
+          <ExplodedView />
 
-        {/* 9. 3D Exploded View Assembly */}
-        <ExplodedView />
+          {/* 10. Data Center System Architecture */}
+          <SystemArchitecture />
 
-        {/* 10. Data Center System Architecture */}
-        <SystemArchitecture />
+          {/* 11. How It Works (6-Step Operational Story) */}
+          <HowItWorks />
 
-        {/* 11. How It Works (6-Step Operational Story) */}
-        <HowItWorks />
+          {/* 12. Analytical Validation, Benchmark Charts & Governing Math */}
+          <ResultsDashboard />
 
-        {/* 12. Analytical Validation, Benchmark Charts & Governing Math */}
-        <ResultsDashboard />
+          {/* 13. Virtual Engineering Lab (Interactive Multi-Variable Sandbox) */}
+          <VirtualLab />
 
-        {/* 13. Virtual Engineering Lab (Interactive Multi-Variable Sandbox) */}
-        <VirtualLab />
+          {/* 14. Design Philosophy Trade-Offs */}
+          <DesignPhilosophy />
 
-        {/* 14. Design Philosophy Trade-Offs */}
-        <DesignPhilosophy />
+          {/* 15. The Hard Part (6 Engineering Challenges) */}
+          <EngineeringChallenges />
 
-        {/* 15. The Hard Part (6 Engineering Challenges) */}
-        <EngineeringChallenges />
+          {/* 16. Real-World Applications Grid */}
+          <ApplicationsGrid />
 
-        {/* 16. Real-World Applications Grid */}
-        <ApplicationsGrid />
+          {/* 17. Future Research Roadmap */}
+          <FutureScope />
 
-        {/* 17. Future Research Roadmap */}
-        <FutureScope />
+          {/* 18. Project Development Journey */}
+          <ProjectJourney />
 
-        {/* 18. Project Development Journey */}
-        <ProjectJourney />
+          {/* 19. Web Development Internship Portfolio Tech Stack */}
+          <TechStackShowcase />
 
-        {/* 19. Web Development Internship Portfolio Tech Stack */}
-        <TechStackShowcase />
+          {/* 20. Engineering Team & Woxsen University Credits */}
+          <TeamSection />
 
-        {/* 20. Engineering Team & Woxsen University Credits */}
-        <TeamSection />
+          {/* 21. Final High-Impact CTA */}
+          <FinalCTA />
+        </main>
 
-        {/* 21. Final High-Impact CTA */}
-        <FinalCTA />
-      </main>
-
-      {/* Engineering Footer */}
-      <Footer />
-    </div>
+        {/* Engineering Footer */}
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }
 

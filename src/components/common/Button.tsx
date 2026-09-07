@@ -30,15 +30,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-dtc-cyan text-white dark:text-black font-semibold hover:opacity-90 dark:hover:bg-white shadow-md dark:shadow-[0_0_20px_rgba(0,240,255,0.3)]',
+      'bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-[0_4px_14px_rgba(37,99,235,0.3)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 keep-white btn-text-white dark:bg-dtc-cyan dark:text-black dark:font-semibold dark:hover:bg-white dark:shadow-[0_0_20px_rgba(0,240,255,0.3)] dark:hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] dark:hover:translate-y-0',
     secondary:
-      'bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 hover:border-dtc-cyan hover:bg-slate-50 dark:hover:bg-slate-800/90 hover:text-dtc-cyan shadow-sm',
+      'bg-white text-slate-800 border border-blue-600/30 hover:bg-blue-50/80 hover:border-blue-600 hover:text-blue-700 shadow-sm dark:bg-slate-900/90 dark:text-slate-100 dark:border-slate-700/80 dark:hover:border-dtc-cyan/50 dark:hover:bg-slate-800/90 dark:hover:text-dtc-cyan',
     thermal:
-      'bg-dtc-hot text-white font-semibold hover:opacity-90 dark:hover:bg-red-500 shadow-md dark:shadow-[0_0_20px_rgba(255,59,48,0.35)]',
+      'bg-red-600 text-white font-semibold hover:bg-red-700 shadow-[0_4px_14px_rgba(239,68,68,0.35)] hover:shadow-[0_6px_20px_rgba(239,68,68,0.5)] keep-white btn-text-white dark:bg-dtc-hot dark:text-white dark:hover:bg-red-500 dark:shadow-[0_0_20px_rgba(255,59,48,0.35)] dark:hover:shadow-[0_0_30px_rgba(255,59,48,0.6)]',
     ghost:
-      'bg-transparent text-slate-600 dark:text-slate-300 hover:text-dtc-cyan hover:bg-slate-100 dark:hover:bg-slate-800/50',
+      'bg-transparent text-slate-700 hover:text-blue-600 hover:bg-blue-50/60 dark:bg-transparent dark:text-slate-300 dark:hover:text-dtc-cyan dark:hover:bg-slate-800/50',
     outline:
-      'bg-transparent text-dtc-cyan border border-dtc-cyan/40 hover:bg-dtc-cyan/10 hover:border-dtc-cyan shadow-sm dark:shadow-[0_0_15px_rgba(0,240,255,0.15)]',
+      'bg-transparent text-blue-600 border border-blue-600/50 hover:bg-blue-50/80 hover:border-blue-600 shadow-sm dark:bg-transparent dark:text-dtc-cyan dark:border-dtc-cyan/40 dark:hover:bg-dtc-cyan/10 dark:hover:border-dtc-cyan dark:shadow-[0_0_15px_rgba(0,240,255,0.15)]',
   };
 
   return (
@@ -49,7 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {Icon && iconPosition === 'left' && <Icon className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />}
-      <span>{children}</span>
+      <span className="keep-white">{children}</span>
       {Icon && iconPosition === 'right' && <Icon className="w-4 h-4 transition-transform group-hover:translate-x-1" />}
     </button>
   );

@@ -12,11 +12,11 @@ export const BeforeAfterSlider: React.FC = () => {
           <Badge variant="cyan" size="md" className="mb-3">
             03 // BEFORE & AFTER COMPARISON
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#0B1220] dark:text-white tracking-tight">
             DIRECT THERMAL EXTRACTION{' '}
-            <span className="text-dtc-cyan">IN ACTION.</span>
+            <span className="text-blue-600 dark:text-dtc-cyan">IN ACTION.</span>
           </h2>
-          <p className="mt-4 text-slate-400 font-sans leading-relaxed">
+          <p className="mt-4 text-[#526174] dark:text-slate-400 font-sans leading-relaxed">
             Drag the divider to compare the thermal heat map of a monolithic cold plate vs our Heterogeneous Area-Specific Cold Plate (H-ASP) under full 700W load.
           </p>
         </div>
@@ -25,7 +25,7 @@ export const BeforeAfterSlider: React.FC = () => {
         <div className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden glass-panel border border-slate-800 shadow-2xl select-none">
           <div className="relative h-[380px] sm:h-[440px] md:h-[480px] w-full bg-slate-950 overflow-hidden">
             {/* RIGHT SIDE (AFTER - H-ASP DTC) */}
-            <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/40 from-slate-50 via-white to-sky-50/60">
+            <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950/40">
               <div className="flex justify-end">
                 <div className="glass-panel px-4 py-2 rounded-xl border border-dtc-cyan/40 flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-dtc-green" />
@@ -69,7 +69,7 @@ export const BeforeAfterSlider: React.FC = () => {
 
             {/* LEFT SIDE (BEFORE - MONOLITHIC COLD PLATE) clipped by sliderPosition */}
             <div
-              className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-red-950/40 from-slate-50 via-white to-red-50/60 border-r-2 border-slate-400 dark:border-white/80 overflow-hidden"
+              className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/40 border-r-2 border-white/80 overflow-hidden"
               style={{ width: `${sliderPosition}%` }}
             >
               <div className="flex justify-start">

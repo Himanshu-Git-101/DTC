@@ -1,98 +1,100 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
 interface ThemeToggleProps {
-  variant?: 'navbar' | 'compact' | 'floating';
   className?: string;
 }
 
-export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'navbar', className = '' }) => {
-  const { theme, isDark, toggleTheme } = useTheme();
+export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '' }) => {
+  const { isDark, toggleTheme } = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
 
-  if (variant === 'floating') {
-    return (
-      <button
-        onClick={toggleTheme}
-        className={`fixed bottom-6 right-6 z-40 p-3 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-dtc-cyan select-none group ${
-          isDark
-            ? 'bg-slate-900/90 text-dtc-cyan border-dtc-cyan/40 hover:border-dtc-cyan shadow-[0_0_20px_rgba(0,240,255,0.2)]'
-            : 'bg-white/95 text-sky-700 border-slate-200 hover:border-sky-500 shadow-slate-300/50 hover:shadow-sky-100'
-        } ${className}`}
-        aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-        title={`Switch to ${isDark ? 'Cleanroom Lab' : 'Chilled Telemetry'} Mode`}
-      >
-        <motion.div
-          key={theme}
-          initial={{ rotate: -90, scale: 0.8, opacity: 0 }}
-          animate={{ rotate: 0, scale: 1, opacity: 1 }}
-          exit={{ rotate: 90, scale: 0.8, opacity: 0 }}
-          transition={{ duration: 0.25 }}
-        >
-          {isDark ? <Sun className="w-5 h-5 text-amber-400 group-hover:rotate-45 transition-transform" /> : <Moon className="w-5 h-5 text-sky-600 group-hover:-rotate-12 transition-transform" />}
-        </motion.div>
-      </button>
-    );
-  }
+  const tooltipText = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  const ariaLabel = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 
-  if (variant === 'compact') {
-    return (
-      <button
-        onClick={toggleTheme}
-        className={`p-2 rounded-lg border transition-all duration-200 select-none flex items-center justify-center ${
-          isDark
-            ? 'bg-slate-900/80 text-slate-300 border-slate-700 hover:text-dtc-cyan hover:border-dtc-cyan/50'
-            : 'bg-white text-slate-700 border-slate-200 hover:text-sky-700 hover:border-sky-400 shadow-sm'
-        } ${className}`}
-        aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-        title={`Switch to ${isDark ? 'Cleanroom Lab' : 'Chilled Telemetry'} Mode`}
-      >
-        {isDark ? (
-          <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
-        ) : (
-          <Moon className="w-4 h-4 text-sky-600 hover:-rotate-12 transition-transform" />
-        )}
-      </button>
-    );
-  }
-
-  // Default: 'navbar' - High-tech mechanical switch pill
   return (
-    <button
-      role="switch"
-      aria-checked={!isDark}
-      onClick={toggleTheme}
-      className={`relative inline-flex items-center h-8 rounded-full p-1 cursor-pointer transition-all duration-300 select-none border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dtc-cyan ${
-        isDark
-          ? 'bg-slate-900/90 border-slate-700/80 hover:border-dtc-cyan/40 w-[68px]'
-          : 'bg-slate-100 border-slate-300 hover:border-sky-400 shadow-inner w-[68px]'
-      } ${className}`}
-      aria-label="Toggle light and dark color mode"
-      title={`Current: ${isDark ? 'Chilled Telemetry (Dark)' : 'Cleanroom Lab (Light)'}. Click to switch.`}
+    <div
+      className={`relative inline-flex items-center justify-center ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background track labels */}
-      <div className="w-full flex justify-between items-center px-1.5 pointer-events-none text-[10px] font-mono select-none">
-        <Moon className={`w-3.5 h-3.5 transition-opacity ${isDark ? 'opacity-30 text-dtc-cyan' : 'opacity-70 text-slate-400'}`} />
-        <Sun className={`w-3.5 h-3.5 transition-opacity ${!isDark ? 'opacity-30 text-amber-600' : 'opacity-70 text-slate-500'}`} />
-      </div>
-
-      {/* Sliding pill thumb */}
-      <motion.div
-        className={`absolute top-[3px] w-[26px] h-[26px] rounded-full flex items-center justify-center shadow-md transition-colors ${
-          isDark
-            ? 'left-[3px] bg-slate-800 text-dtc-cyan border border-dtc-cyan/40 shadow-[0_0_10px_rgba(0,240,255,0.25)]'
-            : 'left-[39px] bg-white text-amber-500 border border-amber-300/80 shadow-slate-300'
-        }`}
-        layout
-        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      <button
+        type="button"
+        onClick={toggleTheme}
+        aria-label={ariaLabel}
+        className="relative group min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-dtc-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-dtc-bg
+          bg-slate-900/80 border border-slate-700/80 shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:border-dtc-cyan/60 hover:shadow-[0_0_20px_rgba(0,240,255,0.25)] hover:scale-105 active:scale-95
+          dark:bg-slate-900/80 dark:border-slate-700/80 dark:hover:border-dtc-cyan/60 dark:hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]
+          light:bg-white/90 light:border-slate-200 light:shadow-[0_2px_12px_rgba(11,18,32,0.06)] light:hover:border-blue-500/60 light:hover:shadow-[0_0_15px_rgba(37,99,235,0.2)]"
+        style={{
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+        }}
       >
-        {isDark ? (
-          <Moon className="w-3.5 h-3.5 text-dtc-cyan" />
-        ) : (
-          <Sun className="w-3.5 h-3.5 text-amber-500" />
+        {/* Subtle background ambient pulse */}
+        <div
+          className={`absolute inset-0 rounded-xl transition-opacity duration-300 pointer-events-none opacity-0 group-hover:opacity-100 ${
+            isDark ? 'bg-amber-400/10' : 'bg-blue-600/10'
+          }`}
+        />
+
+        {/* Animated Icon Container */}
+        <div className="relative w-5 h-5 flex items-center justify-center overflow-hidden">
+          <AnimatePresence mode="wait" initial={false}>
+            {isDark ? (
+              <motion.div
+                key="sun-icon"
+                initial={{ rotate: -90, scale: 0.5, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                exit={{ rotate: 90, scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+                className="text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)] group-hover:rotate-45 transition-transform duration-300"
+              >
+                <Sun className="w-5 h-5" strokeWidth={2.2} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="moon-icon"
+                initial={{ rotate: 90, scale: 0.5, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                exit={{ rotate: -90, scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+                className="text-blue-600 drop-shadow-[0_0_8px_rgba(37,99,235,0.3)] group-hover:-rotate-12 transition-transform duration-300"
+              >
+                <Moon className="w-5 h-5 fill-blue-600/20" strokeWidth={2.2} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </button>
+
+      {/* Accessible Tooltip on Hover */}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className="absolute top-full mt-2.5 px-2.5 py-1 rounded-lg pointer-events-none whitespace-nowrap z-50 font-mono text-[11px] tracking-wide font-medium shadow-xl border
+              bg-slate-900/95 text-slate-200 border-slate-700
+              dark:bg-slate-900/95 dark:text-slate-200 dark:border-slate-700
+              light:bg-white light:text-slate-900 light:border-slate-200 light:shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+            role="tooltip"
+          >
+            {tooltipText}
+            {/* Tooltip Arrow */}
+            <div
+              className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 border-l border-t
+                bg-slate-900 border-slate-700
+                dark:bg-slate-900 dark:border-slate-700
+                light:bg-white light:border-slate-200"
+            />
+          </motion.div>
         )}
-      </motion.div>
-    </button>
+      </AnimatePresence>
+    </div>
   );
 };

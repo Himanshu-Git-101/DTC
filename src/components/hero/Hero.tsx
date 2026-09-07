@@ -14,10 +14,10 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="overview" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
-      {/* Background Decorative Gradients & Radial Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-dtc-cyan/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-10 w-[500px] h-[400px] bg-dtc-hot/10 rounded-full blur-[160px] pointer-events-none -z-10" />
+    <section id="overview" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-tech-grid bg-dtc-bg">
+      {/* Background Decorative Gradients & Radial Glows: Subtle blue & thermal orange */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-500/8 dark:bg-dtc-cyan/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 right-10 w-[500px] h-[400px] bg-orange-500/8 dark:bg-dtc-hot/10 rounded-full blur-[160px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Badges & Meta */}
@@ -46,20 +46,20 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-7 space-y-6"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-display font-extrabold tracking-tight text-white leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-display font-extrabold tracking-tight text-[#0B1220] dark:text-white leading-[1.08]">
               COOLING THE{' '}
-              <span className="bg-gradient-to-r from-dtc-cyan via-blue-400 to-dtc-hot bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-red-600 dark:from-dtc-cyan dark:via-blue-400 dark:to-dtc-hot bg-clip-text text-transparent">
                 NEXT GENERATION
               </span>{' '}
               OF AI.
             </h1>
 
-            <p className="text-lg sm:text-xl font-medium text-slate-300 font-display">
+            <p className="text-lg sm:text-xl font-medium text-[#334155] dark:text-slate-300 font-display">
               A Direct-to-Chip Liquid Cooling Architecture for High-Density AI Accelerators.
             </p>
 
-            <p className="text-sm sm:text-base text-slate-400 leading-relaxed font-sans max-w-2xl">
-              As AI accelerators exceed 700W, traditional uniform cold plates starve the high-flux compute core (~218 W/cm²). Our <strong className="text-slate-200">Heterogeneous Area-Specific Cold Plate (H-ASP)</strong> introduces a co-designed passive manifold enforcing a <strong className="text-dtc-cyan">70-20-10 flow split</strong>, lowering thermal resistance by <strong className="text-dtc-green">20–30%</strong> while slashing pumping power.
+            <p className="text-sm sm:text-base text-[#526174] dark:text-slate-400 leading-relaxed font-sans max-w-2xl">
+              As AI accelerators exceed 700W, traditional uniform cold plates starve the high-flux compute core (~218 W/cm²). Our <strong className="text-[#0B1220] dark:text-slate-200">Heterogeneous Area-Specific Cold Plate (H-ASP)</strong> introduces a co-designed passive manifold enforcing a <strong className="text-blue-600 dark:text-dtc-cyan">70-20-10 flow split</strong>, lowering thermal resistance by <strong className="text-emerald-600 dark:text-dtc-green">20–30%</strong> while slashing pumping power.
             </p>
 
             {/* CTAs */}
@@ -91,35 +91,35 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Quick Live Telemetry Strip */}
-            <div className="grid grid-cols-3 gap-3 pt-6 border-t border-slate-800/80">
-              <div className="glass-panel p-3 rounded-xl">
-                <span className="text-[10px] font-mono text-slate-400 block uppercase">
+            <div className="grid grid-cols-3 gap-3 pt-6 border-t border-[#DCE4EE] dark:border-slate-800/80">
+              <div className="glass-panel p-3 rounded-xl border border-[#DCE4EE] dark:border-slate-800">
+                <span className="text-[10px] font-mono text-[#64748B] dark:text-slate-400 block uppercase">
                   Thermal Resistance (R_th)
                 </span>
-                <span className="text-lg sm:text-xl font-mono font-bold text-dtc-cyan">
-                  0.053 <span className="text-xs font-normal text-slate-400">K/W</span>
+                <span className="text-lg sm:text-xl font-mono font-bold text-blue-600 dark:text-dtc-cyan">
+                  0.053 <span className="text-xs font-normal text-[#64748B] dark:text-slate-400">K/W</span>
                 </span>
-                <span className="text-[10px] text-dtc-green block mt-0.5">▼ 20-30% vs Monolithic</span>
+                <span className="text-[10px] text-emerald-600 dark:text-dtc-green block mt-0.5">▼ 20-30% vs Monolithic</span>
               </div>
 
-              <div className="glass-panel p-3 rounded-xl">
-                <span className="text-[10px] font-mono text-slate-400 block uppercase">
+              <div className="glass-panel p-3 rounded-xl border border-[#DCE4EE] dark:border-slate-800">
+                <span className="text-[10px] font-mono text-[#64748B] dark:text-slate-400 block uppercase">
                   Hotspot Reduction
                 </span>
-                <span className="text-lg sm:text-xl font-mono font-bold text-dtc-hot">
+                <span className="text-lg sm:text-xl font-mono font-bold text-red-600 dark:text-dtc-hot">
                   -5°C to -10°C
                 </span>
-                <span className="text-[10px] text-slate-400 block mt-0.5">27-30°C Above Coolant</span>
+                <span className="text-[10px] text-[#64748B] dark:text-slate-400 block mt-0.5">27-30°C Above Coolant</span>
               </div>
 
-              <div className="glass-panel p-3 rounded-xl">
-                <span className="text-[10px] font-mono text-slate-400 block uppercase">
+              <div className="glass-panel p-3 rounded-xl border border-[#DCE4EE] dark:border-slate-800">
+                <span className="text-[10px] font-mono text-[#64748B] dark:text-slate-400 block uppercase">
                   Pumping Power
                 </span>
-                <span className="text-lg sm:text-xl font-mono font-bold text-dtc-warm">
+                <span className="text-lg sm:text-xl font-mono font-bold text-amber-600 dark:text-dtc-warm">
                   -25% to -40%
                 </span>
-                <span className="text-[10px] text-dtc-green block mt-0.5">0.60x - 0.75x Baseline</span>
+                <span className="text-[10px] text-emerald-600 dark:text-dtc-green block mt-0.5">0.60x - 0.75x Baseline</span>
               </div>
             </div>
           </motion.div>

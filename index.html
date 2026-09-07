@@ -5,6 +5,24 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300F0FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2v20'/><path d='m4.93 4.93 4.24 4.24'/><path d='m14.83 14.83 4.24 4.24'/><path d='M2 12h20'/><path d='m4.93 19.07 4.24-4.24'/><path d='m14.83 9.17 4.24-4.24'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    <!-- Anti-FOUC Theme Pre-Initialization -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('dtc_theme');
+          if (saved === 'light' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.documentElement.style.colorScheme = 'light';
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+            document.documentElement.style.colorScheme = 'dark';
+          }
+        } catch(e) {}
+      })();
+    </script>
+
     <!-- SEO & Metadata -->
     <title>Direct-to-Chip (DTC) Liquid Cooling | Next-Gen AI Accelerator Thermal Architecture</title>
     <meta name="description" content="An interactive engineering case study exploring Next-Gen Direct-to-Chip (DTC) liquid cooling and Heterogeneous Area-Specific Cold Plate (H-ASP) architecture for 700W+ AI accelerators like NVIDIA H100 SXM5." />
@@ -24,7 +42,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-dtc-bg text-slate-100 font-sans antialiased selection:bg-dtc-cyan selection:text-black overflow-x-hidden">
+  <body class="bg-dtc-bg text-[#0B1220] dark:text-slate-100 font-sans antialiased selection:bg-dtc-cyan selection:text-black overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

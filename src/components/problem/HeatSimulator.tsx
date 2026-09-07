@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Flame, Gauge, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Flame, AlertTriangle, Gauge, Zap } from 'lucide-react';
 import { Badge } from '../common/Badge';
+import { useTheme } from '../../context/ThemeContext';
 
 export const HeatSimulator: React.FC = () => {
-  const [thermalLoad, setThermalLoad] = useState<number>(700); // 200 to 800 W
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { isDark } = useTheme();
+  // Thermal load slider: 200W to 800W
+  const [thermalLoad, setThermalLoad] = useState<number>(700);
 
-  // Compute thermal indicators based on load
-  const isOverheating = thermalLoad > 740;
-  const isHighLoad = thermalLoad >= 600;
-  const computeCoreFlux = (thermalLoad * (218 / 700)).toFixed(0);
-  const estimatedHotspotTemp = (25 + (thermalLoad * 0.053)).toFixed(1);
-  const monolithicHotspotTemp = (25 + (thermalLoad * 0.0757) + 5).toFixed(1);
+  // Derived engineering calculations
+  const computeCoreFlux = Math.round((thermalLoad * 0.7) / 2.2); // ~222 W/cm² at 700W
+  const airJunctionTemp = Math.round(35 + thermalLoad * 0.082); // Air cooler struggles: 92.4°C at 700W
+  const dtcJunctionTemp = Math.round(25 + thermalLoad * 0.041); // DTC liquid cooling: 53.7°C at 700W
+  const isOverheating = airJunctionTemp > 85;
+  const isHighLoad = thermalLoad >= 650;
+
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -21,12 +25,12 @@ export const HeatSimulator: React.FC = () => {
 
     let animId: number;
     let width = (canvas.width = canvas.parentElement?.clientWidth || 600);
-    let height = (canvas.height = 340);
+    let height = (canvas.height = 280);
 
     const handleResize = () => {
       if (!canvas || !canvas.parentElement) return;
       width = canvas.width = canvas.parentElement.clientWidth;
-      height = canvas.height = 340;
+      height = canvas.height = 280;
     };
     window.addEventListener('resize', handleResize);
 
@@ -43,12 +47,9 @@ export const HeatSimulator: React.FC = () => {
       const dieX = cx - dieW / 2;
       const dieY = cy - dieH / 2;
 
-      // Detect active theme
-      const isDark = document.documentElement.classList.contains('dark');
-
       // 1. Draw SXM5 PCB Carrier Base
       ctx.fillStyle = isDark ? '#0a0e17' : '#E2E8F0';
-      ctx.strokeStyle = isDark ? '#1e293b' : '#94A3B8';
+      ctx.strokeStyle = isDark ? '#1e293b' : '#CBD5E1';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.roundRect(dieX - 20, dieY - 20, dieW + 40, dieH + 40, 12);
@@ -56,7 +57,7 @@ export const HeatSimulator: React.FC = () => {
       ctx.stroke();
 
       // PCB Grid
-      ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(15, 23, 42, 0.05)';
+      ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(11, 18, 32, 0.05)';
       ctx.lineWidth = 1;
       for (let x = dieX - 10; x < dieX + dieW + 10; x += 20) {
         ctx.beginPath();
@@ -90,8 +91,8 @@ export const HeatSimulator: React.FC = () => {
         ctx.fill();
         ctx.stroke();
 
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-        ctx.font = '8px monospace';
+        ctx.fillStyle = isDark ? 'rgba(255, 149, 0, 0.8)' : '#c2410c';
+        ctx.font = 'bold 8px monospace';
         ctx.fillText('HBM3', hbm.x + 4, hbm.y + 12);
       });
 
@@ -132,7 +133,7 @@ export const HeatSimulator: React.FC = () => {
       const numRings = 3 + Math.floor(heatIntensity * 4);
       for (let r = 1; r <= numRings; r++) {
         const ringRad = (gradientRadius / numRings) * r;
-        ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 - (r / numRings) * 0.1})`;
+        ctx.strokeStyle = isDark ? `rgba(255, 255, 255, ${0.15 - (r / numRings) * 0.1})` : `rgba(11, 18, 32, ${0.15 - (r / numRings) * 0.1})`;
         ctx.setLineDash([4, 4]);
         ctx.beginPath();
         ctx.arc(cx, cy, ringRad, 0, Math.PI * 2);
@@ -147,16 +148,16 @@ export const HeatSimulator: React.FC = () => {
 
       // Thermal Hotspot Callout
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = isDark ? '#ffffff' : '#0B1220';
       ctx.font = 'bold 11px monospace';
       ctx.fillText('GH100 COMPUTE CORE', cx, coreY + 22);
 
-      ctx.fillStyle = heatIntensity > 0.8 ? '#FF3B30' : '#FFD60A';
+      ctx.fillStyle = heatIntensity > 0.8 ? '#FF3B30' : '#FF9500';
       ctx.font = 'bold 13px monospace';
       ctx.fillText(`${computeCoreFlux} W/cm² FLUX`, cx, cy + 4);
 
       ctx.font = '10px monospace';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.7)' : '#526174';
       ctx.fillText(`Peak Die Area: 2.2 cm²`, cx, coreY + coreH - 16);
 
       animId = requestAnimationFrame(render);
@@ -168,19 +169,19 @@ export const HeatSimulator: React.FC = () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animId);
     };
-  }, [thermalLoad, computeCoreFlux]);
+  }, [thermalLoad, computeCoreFlux, isDark]);
 
   return (
-    <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+    <div className="glass-panel p-6 rounded-2xl border border-[#DCE4EE] dark:border-slate-800 space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#DCE4EE] dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2">
             <Flame className="w-5 h-5 text-dtc-hot animate-pulse" />
-            <h4 className="font-mono text-base font-bold text-slate-100">
+            <h4 className="font-mono text-base font-bold text-[#0B1220] dark:text-slate-100">
               REAL-TIME ACCELERATOR THERMAL FLUX SIMULATOR
             </h4>
           </div>
-          <p className="text-xs font-mono text-slate-400 mt-0.5">
+          <p className="text-xs font-mono text-[#526174] dark:text-slate-400 mt-0.5">
             Adjust the slider to observe localized silicon heat flux and isotherm spreading
           </p>
         </div>
@@ -201,80 +202,101 @@ export const HeatSimulator: React.FC = () => {
       </div>
 
       {/* Interactive Slider Control */}
-      <div className="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-        <div className="flex items-center justify-between">
-          <label htmlFor="thermal-slider" className="font-mono text-xs font-semibold text-slate-300 flex items-center gap-2">
-            <Gauge className="w-4 h-4 text-dtc-cyan" />
-            <span>ACCELERATOR THERMAL LOAD (TDP):</span>
-          </label>
-          <span className="font-mono text-lg font-bold text-dtc-hot">
-            {thermalLoad} <span className="text-xs text-slate-400">WATTS</span>
+      <div className="space-y-3 p-4 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-[#DCE4EE] dark:border-slate-800">
+        <div className="flex justify-between items-center font-mono text-xs">
+          <span className="text-[#526174] dark:text-slate-400 flex items-center gap-1.5">
+            <Zap className="w-3.5 h-3.5 text-amber-500" />
+            TOTAL ACCELERATOR TDP:
+          </span>
+          <span className="text-lg font-bold text-[#0B1220] dark:text-slate-100">
+            {thermalLoad} Watts
           </span>
         </div>
 
         <input
-          id="thermal-slider"
           type="range"
           min={200}
           max={800}
-          step={20}
+          step={25}
           value={thermalLoad}
           onChange={(e) => setThermalLoad(Number(e.target.value))}
           className="w-full slider-thermal"
         />
 
-        <div className="flex justify-between font-mono text-[10px] text-slate-400">
-          <span>200W (Idle Load)</span>
-          <span>400W (Standard GPU)</span>
-          <span className="text-dtc-warm font-bold">700W (H100 SXM5 Baseline)</span>
-          <span className="text-dtc-hot font-bold">800W (Overclock Peak)</span>
+        <div className="flex justify-between text-[11px] font-mono text-[#64748B] dark:text-slate-500">
+          <span>200W (Idle / Inference)</span>
+          <span>450W (Standard)</span>
+          <span className="text-amber-600 dark:text-dtc-warm font-semibold">700W (H100 SXM5)</span>
+          <span className="text-red-600 dark:text-dtc-hot font-semibold">800W (Next-Gen)</span>
         </div>
       </div>
 
-      {/* Die Thermal Visualization Canvas */}
-      <div className="relative rounded-xl overflow-hidden bg-slate-950 border border-slate-900">
+      {/* 2D Silicon Thermal Heatmap Canvas */}
+      <div className="relative rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-[#DCE4EE] dark:border-slate-900 shadow-inner">
         <canvas ref={canvasRef} className="w-full h-auto block" />
       </div>
 
-      {/* Dynamic Comparison Telemetry Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Monolithic Cold Plate Result */}
-        <div className="p-4 rounded-xl bg-slate-900/60 border border-dtc-hot/30 relative">
-          <div className="flex items-center justify-between mb-2">
-            <span className="font-mono text-xs text-slate-400 uppercase font-semibold">
-              Traditional Monolithic Cold Plate
+      {/* Dual Comparative Readout Cards: Air vs Liquid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Air Cooling Outcome */}
+        <div
+          className={`p-4 rounded-xl border transition-all ${
+            isOverheating
+              ? 'bg-red-500/10 border-red-500/40'
+              : 'bg-slate-100/80 dark:bg-slate-900/70 border-[#DCE4EE] dark:border-slate-800'
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-xs text-[#526174] dark:text-slate-400">
+              TRADITIONAL FORCED AIR COOLER
             </span>
-            <AlertTriangle className="w-4 h-4 text-dtc-hot" />
+            {isOverheating && (
+              <span className="flex items-center gap-1 text-[11px] font-mono text-red-600 dark:text-dtc-hot font-bold">
+                <AlertTriangle className="w-3.5 h-3.5" />
+                THROTTLING
+              </span>
+            )}
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-mono font-bold text-dtc-hot">
-              {monolithicHotspotTemp}°C
+          <div className="mt-2 flex items-baseline gap-2">
+            <span
+              className={`text-2xl font-mono font-extrabold ${
+                isOverheating ? 'text-red-600 dark:text-dtc-hot' : 'text-[#0B1220] dark:text-slate-200'
+              }`}
+            >
+              {airJunctionTemp}°C
             </span>
-            <span className="text-xs font-mono text-slate-400">Silicon Hotspot</span>
+            <span className="text-xs font-mono text-[#526174] dark:text-slate-400">
+              Junction Temp (T_j limit: 85°C)
+            </span>
           </div>
-          <p className="text-xs text-slate-400 mt-2 font-mono leading-relaxed">
-            Uniform flow starves the compute die. High localized thermal resistance (<strong className="text-slate-200">0.0757 K/W</strong>) causes throttling at &gt;700W.
+          <p className="mt-2 text-xs text-[#526174] dark:text-slate-400">
+            {isOverheating
+              ? 'Thermal resistance (0.095 K/W) causes severe thermal saturation. Fans ramp to 100% (78 dB) and GPU throttles by 25–40%.'
+              : 'Adequate for lower TDP, but reaches high acoustic noise and power consumption.'}
           </p>
         </div>
 
-        {/* H-ASP Result */}
-        <div className="p-4 rounded-xl bg-slate-900/60 border border-dtc-cyan/40 relative shadow-[0_0_20px_rgba(0,240,255,0.08)]">
-          <div className="flex items-center justify-between mb-2">
-            <span className="font-mono text-xs text-dtc-cyan uppercase font-semibold">
-              H-ASP Heterogeneous Cold Plate
+        {/* DTC Liquid Cooling Outcome */}
+        <div className="p-4 rounded-xl bg-blue-500/10 dark:bg-dtc-cyan/10 border border-blue-500/30 dark:border-dtc-cyan/30">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-xs text-blue-700 dark:text-dtc-cyan font-semibold">
+              H-ASP DIRECT-TO-CHIP LIQUID
             </span>
-            <ShieldCheck className="w-4 h-4 text-dtc-green" />
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-mono font-bold text-dtc-cyan">
-              {estimatedHotspotTemp}°C
-            </span>
-            <span className="text-xs font-mono text-dtc-green font-semibold">
-              (-{(Number(monolithicHotspotTemp) - Number(estimatedHotspotTemp)).toFixed(1)}°C Cooler)
+            <span className="flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-dtc-green font-bold">
+              <Gauge className="w-3.5 h-3.5" />
+              OPTIMAL
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-2 font-mono leading-relaxed">
-            Passive 70% flow allocation to compute core slashes resistance to <strong className="text-dtc-cyan">0.053 K/W</strong>, keeping silicon in safe boost range.
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-2xl font-mono font-extrabold text-blue-600 dark:text-dtc-cyan">
+              {dtcJunctionTemp}°C
+            </span>
+            <span className="text-xs font-mono text-[#526174] dark:text-slate-400">
+              Junction Temp (ΔT = {airJunctionTemp - dtcJunctionTemp}°C cooler)
+            </span>
+          </div>
+          <p className="mt-2 text-xs text-[#526174] dark:text-slate-300">
+            Microchannel convective heat transfer coefficient (&gt;18,000 W/m²K) dissipates core hotspot easily. Silicon runs cool with 0% throttling.
           </p>
         </div>
       </div>

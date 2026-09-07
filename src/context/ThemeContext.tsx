@@ -15,40 +15,60 @@ const THEME_STORAGE_KEY = 'dtc_theme';
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    // Check localStorage first
+    // 1. Check local storage
     if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-      if (savedTheme === 'dark' || savedTheme === 'light') {
-        return savedTheme;
+      const saved = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
+      if (saved === 'dark' || saved === 'light') {
+        return saved;
       }
-      // Check system preference
-      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+
+      // 2. Check system preference
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
         return 'light';
       }
     }
-    // Default to dark mode for AI hardware telemetry feel
+
+    // 3. Default fallback is dark mode
     return 'dark';
   });
 
-  useEffect(() => {
+  const applyTheme = (targetTheme: Theme) => {
     const root = document.documentElement;
-    if (theme === 'dark') {
+    if (targetTheme === 'dark') {
       root.classList.add('dark');
       root.classList.remove('light');
+      root.style.colorScheme = 'dark';
     } else {
       root.classList.remove('dark');
       root.classList.add('light');
+      root.style.colorScheme = 'light';
     }
+  };
 
+  useEffect(() => {
+    applyTheme(theme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch {
-      // Ignore localStorage errors (e.g. private browsing quota)
+      // ignore storage quota errors
     }
-
-    // Dispatch custom event for HTML5 Canvas components to update immediately
-    window.dispatchEvent(new CustomEvent('dtc-theme-change', { detail: { theme } }));
   }, [theme]);
+
+  // Listen to system preference changes if user hasn't explicitly set a preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      const saved = localStorage.getItem(THEME_STORAGE_KEY);
+      if (!saved) {
+        setThemeState(e.matches ? 'light' : 'dark');
+      }
+    };
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
+  }, []);
 
   const toggleTheme = () => {
     setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
