@@ -1,32 +1,464 @@
-# React + TypeScript + Vite
+# ❄️ Direct-to-Chip Cooling — Interactive Engineering Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> **An interactive web experience exploring Direct-to-Chip (DTC) liquid cooling for next-generation AI accelerators.**
 
-Currently, two official plugins are available:
+[![React](https://img.shields.io/badge/React-2026-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Three.js](https://img.shields.io/badge/Three.js-3D-000000?logo=three.js&logoColor=white)](https://threejs.org/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+As AI accelerators become increasingly powerful, **thermal management is becoming one of the major challenges in high-performance computing**.
 
-## Expanding the Oxlint configuration
+This project explores a **Direct-to-Chip (DTC) liquid cooling architecture** designed to bring the cooling medium closer to the primary heat source.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+Alongside the engineering concept, this repository contains an **interactive web-based engineering presentation** that transforms the project into an immersive digital experience.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+Instead of presenting the project as a conventional slide deck, the website allows users to **explore the problem, understand the proposed solution, visualize coolant flow, inspect the cold-plate architecture, and follow the complete engineering journey.**
+
+---
+
+# 🎯 Problem Statement
+
+Modern AI accelerators generate increasingly high amounts of heat within relatively small physical areas.
+
+Traditional air-cooling approaches can become challenging as:
+
+- Power density increases
+- Thermal hotspots become more concentrated
+- Heat needs to travel through multiple thermal interfaces
+- Cooling requirements become more demanding
+- System size and efficiency become increasingly important
+
+The central question behind this project is:
+
+> **Can we bring the cooling medium closer to the heat source to improve the thermal management architecture?**
+
+---
+
+# 💡 Proposed Solution
+
+### Direct-to-Chip Liquid Cooling
+
+The proposed approach places an engineered **cold plate directly above the AI accelerator**.
+
+Coolant flows through channels within the cold plate, allowing thermal energy to be transferred from the accelerator into the cooling loop.
+
+### Conceptual flow
+
+```text
+        AI ACCELERATOR
+              │
+              │ Heat
+              ▼
+       ┌───────────────┐
+       │  COLD PLATE   │
+       │ ───────────── │
+       │ FLOW CHANNELS │
+       └───────┬───────┘
+               │
+          COOLANT FLOW
+               │
+               ▼
+         HEAT REMOVAL
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The core design philosophy is simple:
+
+> **Shorten the thermal path.**
+
+---
+
+# 🌡️ How Direct-to-Chip Cooling Works
+
+The cooling process can be understood in six stages:
+
+### 01 — Heat Generation
+
+The AI accelerator generates heat during operation.
+
+### 02 — Thermal Transfer
+
+Heat moves from the accelerator into the cold plate.
+
+### 03 — Coolant Flow
+
+Liquid coolant travels through engineered channels inside the cold plate.
+
+### 04 — Heat Absorption
+
+The coolant absorbs thermal energy from the cold plate.
+
+### 05 — Heat Removal
+
+The heated coolant leaves the cold plate.
+
+### 06 — Recirculation
+
+The cooling system circulates the fluid back through the loop.
+
+---
+
+# 🧊 Cold Plate Architecture
+
+The cold plate is the central component of the proposed cooling architecture.
+
+The design considers factors such as:
+
+- Heat distribution
+- Coolant flow paths
+- Contact area
+- Flow uniformity
+- Pressure drop
+- Thermal resistance
+- Manufacturability
+- Leakage prevention
+- Packaging constraints
+
+The website provides an interactive visualization of the cold plate, including its conceptual:
+
+- Inlet
+- Outlet
+- Internal channels
+- Chip interface
+- Coolant path
+- Heat-transfer region
+
+---
+
+# 🌐 Interactive Website
+
+The web experience is designed as an **engineering story**, rather than a static presentation.
+
+### Website flow
+
+```text
+PROBLEM
+   ↓
+THERMAL CHALLENGE
+   ↓
+TRADITIONAL COOLING
+   ↓
+DTC SOLUTION
+   ↓
+COLD PLATE
+   ↓
+SYSTEM ARCHITECTURE
+   ↓
+HOW IT WORKS
+   ↓
+FLOW VISUALIZATION
+   ↓
+VALIDATION
+   ↓
+APPLICATIONS
+   ↓
+FUTURE SCOPE
+```
+
+---
+
+# ✨ Key Web Features
+
+## 🎨 Premium UI
+
+A futuristic engineering interface inspired by:
+
+- AI hardware
+- Data centers
+- Thermal systems
+- Engineering dashboards
+
+---
+
+## 🌡️ Interactive Thermal Visualization
+
+Users can interact with a conceptual thermal-load visualization.
+
+Increasing the thermal load dynamically changes the visual representation of the heat generated by the accelerator.
+
+---
+
+## 💧 Coolant Flow Animation
+
+Animated particles represent coolant moving through the cold-plate channels.
+
+The visualization demonstrates:
+
+```text
+COOLANT IN
+     ↓
+FLOW CHANNELS
+     ↓
+HEAT ABSORPTION
+     ↓
+COOLANT OUT
+```
+
+---
+
+## 🧊 Interactive Cold Plate
+
+Users can explore the major components of the cold plate through interactive visualizations and annotations.
+
+---
+
+## 🔬 Exploded Engineering View
+
+The system can be visualized as an exploded assembly consisting of:
+
+```text
+Cooling Loop
+     ↓
+Cold Plate
+     ↓
+Thermal Interface
+     ↓
+AI Accelerator
+```
+
+---
+
+## ⚖️ Conventional vs DTC Cooling
+
+An interactive comparison explains the conceptual difference between traditional cooling and Direct-to-Chip cooling.
+
+### Conventional
+
+```text
+Chip
+ ↓
+Thermal Interface
+ ↓
+Heat Spreader
+ ↓
+Heatsink
+ ↓
+Air
+```
+
+### DTC
+
+```text
+Chip
+ ↓
+Cold Plate
+ ↓
+Liquid
+```
+
+---
+
+# 🧪 Validation & Results
+
+The website includes a dedicated section for presenting project validation.
+
+This can include:
+
+- CFD simulations
+- Thermal distribution
+- Temperature data
+- Pressure distribution
+- Flow visualization
+- Experimental results
+- Thermal comparisons
+
+> **Note:** Numerical results are only displayed when supported by actual project data. No performance figures are fabricated.
+
+---
+
+# 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| **React** | Component-based UI |
+| **TypeScript** | Type-safe development |
+| **Tailwind CSS** | Responsive styling |
+| **Framer Motion** | UI and scroll animations |
+| **Three.js** | 3D visualization |
+| **React Three Fiber** | React-based 3D rendering |
+| **SVG** | Engineering diagrams |
+| **Vite** | Development and build tooling |
+
+---
+
+# 📁 Project Structure
+
+```text
+dtc-cooling/
+│
+├── public/
+│   ├── images/
+│   └── models/
+│
+├── src/
+│   │
+│   ├── components/
+│   │   ├── Navbar/
+│   │   ├── Hero/
+│   │   ├── ThermalVisualization/
+│   │   ├── ColdPlate/
+│   │   ├── Architecture/
+│   │   ├── Comparison/
+│   │   ├── Results/
+│   │   └── Footer/
+│   │
+│   ├── sections/
+│   │   ├── Problem/
+│   │   ├── Solution/
+│   │   ├── HowItWorks/
+│   │   ├── Applications/
+│   │   └── FutureScope/
+│   │
+│   ├── data/
+│   ├── animations/
+│   ├── assets/
+│   ├── App.tsx
+│   └── main.tsx
+│
+├── package.json
+├── tsconfig.json
+├── tailwind.config.js
+└── README.md
+```
+
+---
+
+# 📱 Responsive Design
+
+The website is designed for:
+
+- 🖥️ Desktop
+- 💻 Laptop
+- 📱 Mobile
+- 📟 Tablet
+
+The interface adapts its layouts and interactions based on screen size.
+
+Complex visualizations are simplified where necessary on mobile to maintain performance and usability.
+
+---
+
+# ⚡ Performance
+
+Performance considerations include:
+
+- Lazy loading
+- Optimized assets
+- Component-based rendering
+- Efficient animations
+- Lazy-loaded 3D components
+- Responsive images
+- Reduced unnecessary re-renders
+
+The goal is to maintain a smooth interactive experience without sacrificing visual quality.
+
+---
+
+# ♿ Accessibility
+
+The project aims to follow modern accessibility practices, including:
+
+- Semantic HTML
+- Keyboard navigation
+- Focus states
+- ARIA labels
+- Responsive typography
+- Reduced-motion support
+- Accessible contrast
+
+Animations respect:
+
+```text
+prefers-reduced-motion
+```
+
+---
+
+# 🎓 Why This Project?
+
+This project combines **hardware engineering and modern web development**.
+
+The engineering side focuses on:
+
+> **Thermal management of high-density AI accelerators**
+
+The software side focuses on:
+
+> **Communicating complex engineering concepts through an interactive web experience**
+
+The website demonstrates the ability to turn technical information into an intuitive digital product.
+
+---
+
+# 🔭 Future Scope
+
+Potential future improvements include:
+
+- Advanced microchannel designs
+- CFD-based interactive visualization
+- Real-time thermal simulation
+- AI-assisted thermal optimization
+- Parametric cold-plate design
+- Real sensor integration
+- Live temperature monitoring
+- Digital-twin visualization
+- WebGL-based engineering simulation
+
+---
+
+# 📸 Project Preview
+
+Add screenshots/GIFs of the website here:
+
+```text
+[ HERO SCREENSHOT ]
+
+[ INTERACTIVE COLD PLATE ]
+
+[ THERMAL VISUALIZATION ]
+
+[ ARCHITECTURE ]
+
+[ MOBILE VIEW ]
+```
+
+A short screen-recording/GIF demonstrating the interactive cooling visualization is highly recommended.
+
+---
+
+# 🧠 Key Takeaway
+
+The central idea behind the project is:
+
+> **As computing becomes more powerful, cooling needs to evolve with it.**
+
+Direct-to-Chip cooling represents an approach where the cooling system is brought closer to the source of heat.
+
+This project combines that engineering concept with an interactive web platform designed to make complex thermal systems easier to understand.
+
+---
+
+# 👨‍💻 Project
+
+**Direct-to-Chip Cooling for AI Accelerators**
+
+**Project Type:** Engineering + Web Development  
+**Domain:** AI Hardware / Thermal Management  
+**Focus:** Direct-to-Chip Liquid Cooling  
+**Interface:** Interactive Engineering Case Study
+
+---
+
+## ⭐ If You Found This Interesting
+
+Consider giving the repository a ⭐ if you found the project interesting.
+
+---
+
+### Built with curiosity, engineering, and code.
+
+**From heat generation → to heat removal → to an interactive web experience.**
