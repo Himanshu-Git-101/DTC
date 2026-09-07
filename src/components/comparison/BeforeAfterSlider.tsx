@@ -25,7 +25,7 @@ export const BeforeAfterSlider: React.FC = () => {
         <div className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden glass-panel border border-slate-800 shadow-2xl select-none">
           <div className="relative h-[380px] sm:h-[440px] md:h-[480px] w-full bg-slate-950 overflow-hidden">
             {/* RIGHT SIDE (AFTER - H-ASP DTC) */}
-            <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950/40">
+            <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/40 from-slate-50 via-white to-sky-50/60">
               <div className="flex justify-end">
                 <div className="glass-panel px-4 py-2 rounded-xl border border-dtc-cyan/40 flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-dtc-green" />
@@ -69,7 +69,7 @@ export const BeforeAfterSlider: React.FC = () => {
 
             {/* LEFT SIDE (BEFORE - MONOLITHIC COLD PLATE) clipped by sliderPosition */}
             <div
-              className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/40 border-r-2 border-white/80 overflow-hidden"
+              className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-red-950/40 from-slate-50 via-white to-red-50/60 border-r-2 border-slate-400 dark:border-white/80 overflow-hidden"
               style={{ width: `${sliderPosition}%` }}
             >
               <div className="flex justify-start">

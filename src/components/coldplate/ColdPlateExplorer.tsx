@@ -91,7 +91,7 @@ export const ColdPlateExplorer: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
           {/* Visual CAD Canvas */}
           <div className="lg:col-span-8 relative glass-panel p-6 sm:p-10 rounded-3xl border border-dtc-cyan/30 hud-corner shadow-[0_0_50px_rgba(0,240,255,0.1)]">
-            <div className="relative w-full aspect-[16/10] bg-slate-950 rounded-2xl border border-slate-900 overflow-hidden flex items-center justify-center p-6 select-none">
+            <div className="relative w-full aspect-[16/10] bg-slate-100 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-900 overflow-hidden flex items-center justify-center p-6 select-none">
               {/* Cold Plate Outer Enclosure SVG Schematic */}
               <svg viewBox="0 0 700 440" className="w-full h-full">
                 {/* Cold Plate Base Metallic Body */}
@@ -101,8 +101,7 @@ export const ColdPlateExplorer: React.FC = () => {
                   width="560"
                   height="360"
                   rx="24"
-                  fill="#0c1322"
-                  stroke="#1e293b"
+                  className="fill-slate-200 dark:fill-[#0c1322] stroke-slate-300 dark:stroke-[#1e293b]"
                   strokeWidth="3"
                 />
 
@@ -113,16 +112,15 @@ export const ColdPlateExplorer: React.FC = () => {
                   width="460"
                   height="280"
                   rx="16"
-                  fill="#151e33"
-                  stroke="rgba(0, 240, 255, 0.4)"
+                  className="fill-slate-50 dark:fill-[#151e33] stroke-dtc-cyan/40"
                   strokeWidth="2"
                   strokeDasharray="6 4"
                 />
 
                 {/* Zone B: Top HBM Modules */}
-                <rect x="180" y="105" width="85" height="60" rx="6" fill="#2d1c08" stroke="#ff9500" strokeWidth="1.5" />
-                <rect x="290" y="105" width="85" height="60" rx="6" fill="#2d1c08" stroke="#ff9500" strokeWidth="1.5" />
-                <rect x="435" y="105" width="85" height="60" rx="6" fill="#2d1c08" stroke="#ff9500" strokeWidth="1.5" />
+                <rect x="180" y="105" width="85" height="60" rx="6" className="fill-amber-100 dark:fill-[#2d1c08] stroke-dtc-warm" strokeWidth="1.5" />
+                <rect x="290" y="105" width="85" height="60" rx="6" className="fill-amber-100 dark:fill-[#2d1c08] stroke-dtc-warm" strokeWidth="1.5" />
+                <rect x="435" y="105" width="85" height="60" rx="6" className="fill-amber-100 dark:fill-[#2d1c08] stroke-dtc-warm" strokeWidth="1.5" />
 
                 {/* Zone A: Center Compute Core Die */}
                 <rect
@@ -131,8 +129,7 @@ export const ColdPlateExplorer: React.FC = () => {
                   width="240"
                   height="110"
                   rx="8"
-                  fill="#3b0f0f"
-                  stroke="#ff3b30"
+                  className="fill-red-100 dark:fill-[#3b0f0f] stroke-dtc-hot"
                   strokeWidth="2.5"
                 />
 
@@ -144,13 +141,13 @@ export const ColdPlateExplorer: React.FC = () => {
                     y1={190}
                     x2={245 + i * 9}
                     y2={280}
-                    stroke="rgba(0, 240, 255, 0.6)"
+                    className="stroke-dtc-cyan/60"
                     strokeWidth="1.5"
                   />
                 ))}
 
                 {/* Zone C: Lower Power Delivery / I/O Channels */}
-                <rect x="160" y="305" width="380" height="40" rx="6" fill="#08222b" stroke="#00f0ff" strokeWidth="1.5" />
+                <rect x="160" y="305" width="380" height="40" rx="6" className="fill-sky-100 dark:fill-[#08222b] stroke-dtc-cyan" strokeWidth="1.5" />
                 {Array.from({ length: 12 }).map((_, i) => (
                   <line
                     key={i}
@@ -158,24 +155,24 @@ export const ColdPlateExplorer: React.FC = () => {
                     y1={310}
                     x2={175 + i * 30}
                     y2={340}
-                    stroke="rgba(0, 240, 255, 0.4)"
+                    className="stroke-dtc-cyan/40"
                     strokeWidth="2"
                   />
                 ))}
 
                 {/* Inlet Port Geometry */}
-                <circle cx="95" cy="220" r="28" fill="#00f0ff" />
-                <circle cx="95" cy="220" r="18" fill="#05070b" stroke="#00f0ff" strokeWidth="3" />
-                <text x="95" y="224" fill="#00f0ff" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">INLET</text>
+                <circle cx="95" cy="220" r="28" className="fill-dtc-cyan" />
+                <circle cx="95" cy="220" r="18" className="fill-slate-900 dark:fill-[#05070b] stroke-dtc-cyan" strokeWidth="3" />
+                <text x="95" y="224" className="fill-dtc-cyan" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">INLET</text>
 
                 {/* Outlet Port Geometry */}
-                <circle cx="605" cy="220" r="28" fill="#ff3b30" />
-                <circle cx="605" cy="220" r="18" fill="#05070b" stroke="#ff3b30" strokeWidth="3" />
-                <text x="605" y="224" fill="#ff3b30" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">OUTLET</text>
+                <circle cx="605" cy="220" r="28" className="fill-dtc-hot" />
+                <circle cx="605" cy="220" r="18" className="fill-slate-900 dark:fill-[#05070b] stroke-dtc-hot" strokeWidth="3" />
+                <text x="605" y="224" className="fill-dtc-hot" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">OUTLET</text>
 
                 {/* Flow Streamline Arrows */}
-                <path d="M 125 220 Q 180 180 230 220" fill="none" stroke="#00f0ff" strokeWidth="2" strokeDasharray="5 5" />
-                <path d="M 470 220 Q 530 240 575 220" fill="none" stroke="#ff3b30" strokeWidth="2" strokeDasharray="5 5" />
+                <path d="M 125 220 Q 180 180 230 220" fill="none" className="stroke-dtc-cyan" strokeWidth="2" strokeDasharray="5 5" />
+                <path d="M 470 220 Q 530 240 575 220" fill="none" className="stroke-dtc-hot" strokeWidth="2" strokeDasharray="5 5" />
               </svg>
 
               {/* Interactive Hotspot Pins Overlay */}

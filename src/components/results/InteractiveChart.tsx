@@ -135,7 +135,7 @@ export const InteractiveChart: React.FC = () => {
       </div>
 
       {/* Interactive SVG Chart */}
-      <div className="relative w-full overflow-x-auto bg-slate-950 p-4 rounded-2xl border border-slate-900 select-none">
+      <div className="relative w-full overflow-x-auto bg-slate-100 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-900 select-none">
         <svg viewBox={`0 0 ${chartW} ${chartH}`} className="w-full h-auto min-w-[500px]">
           {/* Grid lines */}
           {Array.from({ length: 5 }).map((_, i) => {
@@ -148,13 +148,13 @@ export const InteractiveChart: React.FC = () => {
                   y1={yPos}
                   x2={padL + plotW}
                   y2={yPos}
-                  stroke="rgba(255, 255, 255, 0.06)"
+                  className="stroke-slate-300 dark:stroke-white/10"
                   strokeDasharray="4 4"
                 />
                 <text
                   x={padL - 8}
                   y={yPos + 4}
-                  fill="#64748b"
+                  className="fill-slate-500 dark:fill-[#64748b]"
                   fontSize="9"
                   fontFamily="monospace"
                   textAnchor="end"
@@ -173,7 +173,7 @@ export const InteractiveChart: React.FC = () => {
                 key={idx}
                 x={getX(pt.x)}
                 y={padT + plotH + 18}
-                fill="#64748b"
+                className="fill-slate-500 dark:fill-[#64748b]"
                 fontSize="9"
                 fontFamily="monospace"
                 textAnchor="middle"
@@ -187,7 +187,7 @@ export const InteractiveChart: React.FC = () => {
           <path
             d={monoPath}
             fill="none"
-            stroke="#FF3B30"
+            className="stroke-dtc-hot"
             strokeWidth="2.5"
             strokeDasharray="6 4"
           />
@@ -196,9 +196,8 @@ export const InteractiveChart: React.FC = () => {
           <path
             d={haspPath}
             fill="none"
-            stroke="#00F0FF"
+            className="stroke-dtc-cyan"
             strokeWidth="3"
-            filter="drop-shadow(0 0 6px rgba(0,240,255,0.6))"
           />
 
           {/* Data Points */}
