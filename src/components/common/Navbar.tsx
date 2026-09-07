@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Cpu, ChevronRight, Sparkles } from 'lucide-react';
 import { Button } from './Button';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavItem {
   label: string;
@@ -94,7 +95,7 @@ export const Navbar: React.FC = () => {
         </a>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden xl:flex items-center gap-1 bg-slate-900/60 p-1 rounded-full border border-white/5 backdrop-blur-md">
+        <nav className="hidden xl:flex items-center gap-1 bg-white/80 dark:bg-slate-900/60 p-1 rounded-full border border-slate-200 dark:border-white/5 backdrop-blur-md shadow-sm dark:shadow-none">
           {NAV_ITEMS.slice(0, 8).map((item) => {
             const isActive = activeSection === item.href.replace('#', '');
             return (
@@ -105,7 +106,7 @@ export const Navbar: React.FC = () => {
                 className={`px-3 py-1.5 rounded-full font-mono text-xs tracking-wider transition-all relative ${
                   isActive
                     ? 'text-dtc-cyan bg-dtc-cyan/10 font-semibold shadow-[0_0_10px_rgba(0,240,255,0.2)]'
-                    : 'text-slate-400 hover:text-slate-100 hover:bg-white/5'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5'
                 }`}
               >
                 {item.label}
@@ -114,8 +115,11 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Right Action / Telemetry */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Right Action / Telemetry & Theme Switch */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          {/* Theme Mode Switch Button */}
+          <ThemeToggle variant="navbar" />
+
           <a
             href="#virtual-lab"
             onClick={(e) => scrollToSection(e, '#virtual-lab')}
@@ -138,23 +142,29 @@ export const Navbar: React.FC = () => {
           </Button>
         </div>
 
-        {/* Mobile Menu Trigger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="xl:hidden p-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-dtc-cyan hover:border-dtc-cyan transition-colors"
-          aria-label="Toggle navigation menu"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Mobile Actions: Theme switch + Menu trigger */}
+        <div className="flex xl:hidden items-center gap-2">
+          <ThemeToggle variant="compact" />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-dtc-cyan hover:border-dtc-cyan transition-colors shadow-sm"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden fixed inset-x-0 top-[65px] bg-dtc-bg/95 backdrop-blur-xl border-b border-slate-800 p-6 shadow-2xl transition-all max-h-[85vh] overflow-y-auto">
+        <div className="xl:hidden fixed inset-x-0 top-[65px] bg-dtc-bg/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 p-6 shadow-2xl transition-all max-h-[85vh] overflow-y-auto">
           <div className="flex flex-col gap-2">
-            <div className="px-3 py-2 text-xs font-mono text-slate-500 uppercase tracking-widest border-b border-slate-800 flex items-center justify-between">
-              <span>Navigation Menu</span>
-              <span className="text-dtc-cyan">WOXSEN UNIVERSITY</span>
+            <div className="px-3 py-2 text-xs font-mono text-slate-500 uppercase tracking-widest border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span>Color Theme:</span>
+                <ThemeToggle variant="navbar" />
+              </div>
+              <span className="text-dtc-cyan font-bold">WOXSEN UNIV</span>
             </div>
 
             {NAV_ITEMS.map((item) => {

@@ -30,15 +30,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-dtc-cyan text-black font-semibold hover:bg-white shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)]',
+      'bg-dtc-cyan text-white dark:text-black font-semibold hover:opacity-90 dark:hover:bg-white shadow-md dark:shadow-[0_0_20px_rgba(0,240,255,0.3)]',
     secondary:
-      'bg-slate-900/90 text-slate-100 border border-slate-700/80 hover:border-dtc-cyan/50 hover:bg-slate-800/90 hover:text-dtc-cyan',
+      'bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 hover:border-dtc-cyan hover:bg-slate-50 dark:hover:bg-slate-800/90 hover:text-dtc-cyan shadow-sm',
     thermal:
-      'bg-dtc-hot text-white font-semibold hover:bg-red-500 shadow-[0_0_20px_rgba(255,59,48,0.35)] hover:shadow-[0_0_30px_rgba(255,59,48,0.6)]',
+      'bg-dtc-hot text-white font-semibold hover:opacity-90 dark:hover:bg-red-500 shadow-md dark:shadow-[0_0_20px_rgba(255,59,48,0.35)]',
     ghost:
-      'bg-transparent text-slate-300 hover:text-dtc-cyan hover:bg-slate-800/50',
+      'bg-transparent text-slate-600 dark:text-slate-300 hover:text-dtc-cyan hover:bg-slate-100 dark:hover:bg-slate-800/50',
     outline:
-      'bg-transparent text-dtc-cyan border border-dtc-cyan/40 hover:bg-dtc-cyan/10 hover:border-dtc-cyan shadow-[0_0_15px_rgba(0,240,255,0.15)]',
+      'bg-transparent text-dtc-cyan border border-dtc-cyan/40 hover:bg-dtc-cyan/10 hover:border-dtc-cyan shadow-sm dark:shadow-[0_0_15px_rgba(0,240,255,0.15)]',
   };
 
   return (

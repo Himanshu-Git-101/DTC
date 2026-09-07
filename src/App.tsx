@@ -28,6 +28,7 @@ import { ProjectJourney } from './components/roadmap/ProjectJourney';
 import { TechStackShowcase } from './components/developer/TechStackShowcase';
 import { TeamSection } from './components/developer/TeamSection';
 import { FinalCTA } from './components/cta/FinalCTA';
+import { ThemeToggle } from './components/common/ThemeToggle';
 
 export function App() {
   const [bootComplete, setBootComplete] = useState<boolean>(() => {
@@ -35,7 +36,7 @@ export function App() {
   });
 
   return (
-    <div className="min-h-screen bg-dtc-bg text-slate-100 flex flex-col selection:bg-dtc-cyan selection:text-black">
+    <div className="min-h-screen bg-dtc-bg text-slate-900 dark:text-slate-100 flex flex-col selection:bg-dtc-cyan selection:text-black transition-colors duration-300">
       {/* High-tech Diagnostic Boot Sequence */}
       <AnimatePresence>
         {!bootComplete && <BootLoader onComplete={() => setBootComplete(true)} />}
@@ -43,6 +44,9 @@ export function App() {
 
       {/* Main App Navigation */}
       <Navbar />
+
+      {/* Floating Theme Quick Switcher for anytime access */}
+      <ThemeToggle variant="floating" />
 
       {/* Interactive Case Study Content */}
       <main className="flex-1 w-full overflow-hidden">

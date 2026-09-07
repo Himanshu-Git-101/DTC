@@ -3,7 +3,120 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: light;
+  --dtc-bg: #F8FAFC;
+  --dtc-card: #FFFFFF;
+  --dtc-surface: #F1F5F9;
+  --dtc-border: rgba(15, 23, 42, 0.10);
+  --dtc-border-glow: rgba(2, 132, 199, 0.35);
+  --dtc-cyan: #0284C7; /* Technical Sky-600: precision hydraulic cyan, authoritative & non-flashy */
+  --dtc-cyan-dim: rgba(2, 132, 199, 0.12);
+  --dtc-blue: #1D4ED8;
+  --dtc-hot: #DC2626; /* Cadmium Red-600: scientific thermal red */
+  --dtc-hot-dim: rgba(220, 38, 38, 0.12);
+  --dtc-warm: #D97706; /* Technical Amber-600 */
+  --dtc-warm-dim: rgba(217, 119, 6, 0.12);
+  --dtc-green: #059669;
+  --dtc-gold: #D97706;
+  --dtc-copper: #9A3412;
+
+  --hud-corner-color: #0284C7;
+  --glass-bg: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(15, 23, 42, 0.09);
+  --glass-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  --grid-line: rgba(15, 23, 42, 0.05);
+  --scroll-track: #F1F5F9;
+  --scroll-thumb: #CBD5E1;
+  --scroll-thumb-hover: #0284C7;
+}
+
+html.dark {
   color-scheme: dark;
+  --dtc-bg: #05070B;
+  --dtc-card: #0B0F17;
+  --dtc-surface: #101726;
+  --dtc-border: rgba(255, 255, 255, 0.08);
+  --dtc-border-glow: rgba(0, 240, 255, 0.25);
+  --dtc-cyan: #00F0FF;
+  --dtc-cyan-dim: rgba(0, 240, 255, 0.15);
+  --dtc-blue: #2563EB;
+  --dtc-hot: #FF3B30;
+  --dtc-hot-dim: rgba(255, 59, 48, 0.15);
+  --dtc-warm: #FF9500;
+  --dtc-warm-dim: rgba(255, 149, 0, 0.15);
+  --dtc-green: #10B981;
+  --dtc-gold: #FBBF24;
+  --dtc-copper: #B87333;
+
+  --hud-corner-color: #00F0FF;
+  --glass-bg: rgba(11, 15, 23, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: none;
+  --grid-line: rgba(255, 255, 255, 0.03);
+  --scroll-track: #07090e;
+  --scroll-thumb: #1e293b;
+  --scroll-thumb-hover: #00f0ff;
+}
+
+/* Base body background & text transitions */
+body {
+  background-color: var(--dtc-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode specific styling: Cleanroom Thermal Lab / Technical CAD Whitepaper */
+html:not(.dark) body {
+  color: #0F172A;
+}
+
+/* High contrast text adaptations for light mode */
+html:not(.dark) .text-slate-100 {
+  color: #0F172A;
+}
+html:not(.dark) .text-slate-200 {
+  color: #1E293B;
+}
+html:not(.dark) .text-slate-300 {
+  color: #334155;
+}
+html:not(.dark) .text-slate-400 {
+  color: #475569;
+}
+html:not(.dark) .text-slate-500 {
+  color: #64748B;
+}
+
+/* Adapt general text-white to dark slate except inside solid colored buttons */
+html:not(.dark) h1.text-white,
+html:not(.dark) h2.text-white,
+html:not(.dark) h3.text-white,
+html:not(.dark) h4.text-white,
+html:not(.dark) h5.text-white,
+html:not(.dark) p.text-white,
+html:not(.dark) div.text-white,
+html:not(.dark) span.text-white:not([class*="bg-"]):not([class*="badge"]) {
+  color: #0F172A;
+}
+
+/* Subtle border adaptations for light mode */
+html:not(.dark) .border-slate-800,
+html:not(.dark) .border-slate-800\/80,
+html:not(.dark) .border-slate-700,
+html:not(.dark) .border-white\/5,
+html:not(.dark) .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.09);
+}
+
+/* Background panel adaptations for light mode */
+html:not(.dark) .bg-slate-900\/60,
+html:not(.dark) .bg-slate-900\/80,
+html:not(.dark) .bg-slate-900\/90,
+html:not(.dark) .bg-slate-900 {
+  background-color: #F1F5F9;
+}
+
+html:not(.dark) .bg-slate-950 {
+  background-color: #E2E8F0;
 }
 
 /* Custom Scrollbar */
@@ -12,50 +125,52 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #07090e;
+  background: var(--scroll-track);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--scroll-thumb);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00f0ff;
+  background: var(--scroll-thumb-hover);
 }
 
 /* Technical grid background */
 .bg-tech-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
 .bg-tech-dots {
-  background-image: radial-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dtc-cyan-dim) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 /* Glassmorphic card surface */
 .glass-panel {
-  background: rgba(11, 15, 23, 0.75);
+  background: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass-panel-glow {
-  background: rgba(11, 15, 23, 0.85);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  box-shadow: 0 0 30px -10px rgba(0, 240, 255, 0.15);
+  border: 1px solid var(--dtc-border-glow);
+  box-shadow: 0 0 25px -5px var(--dtc-cyan-dim);
 }
 
 .glass-panel-hot {
-  background: rgba(15, 11, 12, 0.85);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 59, 48, 0.25);
-  box-shadow: 0 0 30px -10px rgba(255, 59, 48, 0.2);
+  border: 1px solid var(--dtc-hot-dim);
+  box-shadow: 0 0 25px -5px var(--dtc-hot-dim);
 }
 
 /* Technical HUD Borders */
@@ -69,9 +184,10 @@
   left: -1px;
   width: 8px;
   height: 8px;
-  border-top: 2px solid #00F0FF;
-  border-left: 2px solid #00F0FF;
+  border-top: 2px solid var(--hud-corner-color);
+  border-left: 2px solid var(--hud-corner-color);
   pointer-events: none;
+  transition: border-color 0.3s ease;
 }
 .hud-corner::after {
   content: '';
@@ -80,16 +196,17 @@
   right: -1px;
   width: 8px;
   height: 8px;
-  border-bottom: 2px solid #00F0FF;
-  border-right: 2px solid #00F0FF;
+  border-bottom: 2px solid var(--hud-corner-color);
+  border-right: 2px solid var(--hud-corner-color);
   pointer-events: none;
+  transition: border-color 0.3s ease;
 }
 
 /* Custom range slider styling */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--dtc-border);
   border-radius: 9999px;
   height: 6px;
   outline: none;
@@ -102,25 +219,25 @@ input[type="range"]::-webkit-slider-thumb {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #00F0FF;
-  box-shadow: 0 0 10px #00F0FF;
+  background: var(--dtc-cyan);
+  box-shadow: 0 0 10px var(--dtc-cyan-dim);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 16px #00F0FF;
+  box-shadow: 0 0 16px var(--dtc-cyan);
 }
 
 input[type="range"].slider-thermal::-webkit-slider-thumb {
-  background: #FF3B30;
-  box-shadow: 0 0 10px #FF3B30;
+  background: var(--dtc-hot);
+  box-shadow: 0 0 10px var(--dtc-hot-dim);
 }
 
 input[type="range"].slider-thermal::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 16px #FF3B30;
+  box-shadow: 0 0 16px var(--dtc-hot);
 }
 
 /* Animated fluid gradient */
@@ -149,7 +266,7 @@ input[type="range"].slider-thermal::-webkit-slider-thumb:hover {
 
 /* Accessible focus ring */
 *:focus-visible {
-  outline: 2px solid #00F0FF;
+  outline: 2px solid var(--dtc-cyan);
   outline-offset: 2px;
 }
 

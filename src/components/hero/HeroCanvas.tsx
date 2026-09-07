@@ -82,6 +82,9 @@ export const HeroCanvas: React.FC = () => {
       time += 0.02;
       ctx.clearRect(0, 0, width, height);
 
+      // 0. Detect active theme
+      const isDark = document.documentElement.classList.contains('dark');
+
       // Coordinate anchors
       const cx = width * 0.5;
       const cy = height * 0.5;
@@ -91,8 +94,8 @@ export const HeroCanvas: React.FC = () => {
       const chipY = cy - chipH / 2;
 
       // 1. Draw Silicon PCB / SXM5 Substrate Base
-      ctx.fillStyle = '#080c14';
-      ctx.strokeStyle = '#1e293b';
+      ctx.fillStyle = isDark ? '#080c14' : '#E2E8F0';
+      ctx.strokeStyle = isDark ? '#1e293b' : '#94A3B8';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.roundRect(chipX - 16, chipY - 16, chipW + 32, chipH + 32, 16);
@@ -100,7 +103,7 @@ export const HeroCanvas: React.FC = () => {
       ctx.stroke();
 
       // Substrate pin grid pattern
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(15, 23, 42, 0.06)';
       ctx.lineWidth = 1;
       const gridStep = 24;
       for (let gx = chipX; gx < chipX + chipW; gx += gridStep) {
@@ -126,15 +129,15 @@ export const HeroCanvas: React.FC = () => {
       ];
 
       hbmPositions.forEach((hbm) => {
-        ctx.fillStyle = '#111827';
-        ctx.strokeStyle = '#ff9500';
+        ctx.fillStyle = isDark ? '#111827' : '#F8FAFC';
+        ctx.strokeStyle = isDark ? '#ff9500' : '#D97706';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.roundRect(hbm.x, hbm.y, hbmW, hbmH, 4);
         ctx.fill();
         ctx.stroke();
 
-        ctx.fillStyle = 'rgba(255, 149, 0, 0.6)';
+        ctx.fillStyle = isDark ? 'rgba(255, 149, 0, 0.6)' : 'rgba(180, 83, 9, 0.8)';
         ctx.font = '9px monospace';
         ctx.fillText('HBM3', hbm.x + 4, hbm.y + 12);
       });
@@ -148,9 +151,9 @@ export const HeroCanvas: React.FC = () => {
       // Thermal Heat Map Glow on Compute Die
       const heatPulse = 0.85 + Math.sin(time * 3) * 0.15;
       const heatGrad = ctx.createRadialGradient(cx, cy, 5, cx, cy, coreW * 0.8);
-      heatGrad.addColorStop(0, `rgba(255, 59, 48, ${0.45 * heatPulse})`);
-      heatGrad.addColorStop(0.5, `rgba(255, 149, 0, ${0.25 * heatPulse})`);
-      heatGrad.addColorStop(1, 'rgba(0, 240, 255, 0.05)');
+      heatGrad.addColorStop(0, isDark ? `rgba(255, 59, 48, ${0.45 * heatPulse})` : `rgba(220, 38, 38, ${0.35 * heatPulse})`);
+      heatGrad.addColorStop(0.5, isDark ? `rgba(255, 149, 0, ${0.25 * heatPulse})` : `rgba(217, 119, 6, ${0.20 * heatPulse})`);
+      heatGrad.addColorStop(1, isDark ? 'rgba(0, 240, 255, 0.05)' : 'rgba(2, 132, 199, 0.05)');
 
       ctx.fillStyle = heatGrad;
       ctx.beginPath();
@@ -158,21 +161,21 @@ export const HeroCanvas: React.FC = () => {
       ctx.fill();
 
       // Compute Core Border
-      ctx.strokeStyle = '#ff3b30';
+      ctx.strokeStyle = isDark ? '#ff3b30' : '#DC2626';
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Compute Die Label
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = isDark ? '#ffffff' : '#0F172A';
       ctx.font = 'bold 11px monospace';
       ctx.textAlign = 'center';
       ctx.fillText('ZONE A: COMPUTE CORE', cx, coreY + 18);
-      ctx.fillStyle = '#ff3b30';
+      ctx.fillStyle = isDark ? '#ff3b30' : '#DC2626';
       ctx.font = '10px monospace';
       ctx.fillText('218 W/cm² [480W]', cx, coreY + 32);
 
       // 4. Draw Microchannel Structure (Copper Fin Array Outline)
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.2)';
+      ctx.strokeStyle = isDark ? 'rgba(0, 240, 255, 0.2)' : 'rgba(2, 132, 199, 0.25)';
       ctx.lineWidth = 1;
       const finSpacing = 6;
       for (let fx = coreX + 10; fx < coreX + coreW - 10; fx += finSpacing) {
@@ -183,8 +186,8 @@ export const HeroCanvas: React.FC = () => {
       }
 
       // 5. Draw Cold Plate Manifold Housing (Translucent Glassmorphism)
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.65)';
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+      ctx.fillStyle = isDark ? 'rgba(15, 23, 42, 0.65)' : 'rgba(255, 255, 255, 0.75)';
+      ctx.strokeStyle = isDark ? 'rgba(0, 240, 255, 0.4)' : 'rgba(2, 132, 199, 0.45)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(chipX - 4, chipY - 4, chipW + 8, chipH + 8, 12);
@@ -199,16 +202,16 @@ export const HeroCanvas: React.FC = () => {
       const outletY = cy;
 
       // INLET PORT
-      ctx.fillStyle = '#00f0ff';
+      ctx.fillStyle = isDark ? '#00f0ff' : '#0284C7';
       ctx.beginPath();
       ctx.arc(inletX, inletY, portRadius, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = '#000000';
+      ctx.fillStyle = isDark ? '#000000' : '#FFFFFF';
       ctx.font = 'bold 9px monospace';
       ctx.fillText('IN', inletX, inletY + 3);
 
       // OUTLET PORT
-      ctx.fillStyle = '#ff3b30';
+      ctx.fillStyle = isDark ? '#ff3b30' : '#DC2626';
       ctx.beginPath();
       ctx.arc(outletX, outletY, portRadius, 0, Math.PI * 2);
       ctx.fill();
@@ -258,21 +261,38 @@ export const HeroCanvas: React.FC = () => {
 
           // Color interpolation from Cold Cyan (0) to Warm Orange (0.5) to Hot Red (1.0)
           let r = 0, g = 240, b = 255;
-          if (p.temp < 0.5) {
-            const t = p.temp * 2;
-            r = Math.round(0 + t * 255);
-            g = Math.round(240 - t * 90);
-            b = Math.round(255 - t * 255);
+          if (isDark) {
+            if (p.temp < 0.5) {
+              const t = p.temp * 2;
+              r = Math.round(0 + t * 255);
+              g = Math.round(240 - t * 90);
+              b = Math.round(255 - t * 255);
+            } else {
+              const t = (p.temp - 0.5) * 2;
+              r = 255;
+              g = Math.round(150 - t * 90);
+              b = Math.round(0);
+            }
           } else {
-            const t = (p.temp - 0.5) * 2;
-            r = 255;
-            g = Math.round(150 - t * 90);
-            b = Math.round(0);
+            // Light mode: precision cyan #0284C7 (2, 132, 199) to amber to red #DC2626 (220, 38, 38)
+            if (p.temp < 0.5) {
+              const t = p.temp * 2;
+              r = Math.round(2 + t * 215);
+              g = Math.round(132 - t * 13);
+              b = Math.round(199 - t * 193);
+            } else {
+              const t = (p.temp - 0.5) * 2;
+              r = Math.round(217 + t * 3);
+              g = Math.round(119 - t * 81);
+              b = Math.round(6 + t * 32);
+            }
           }
 
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.85)`;
-          ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
-          ctx.shadowBlur = 6;
+          if (isDark) {
+            ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
+            ctx.shadowBlur = 6;
+          }
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
           ctx.fill();

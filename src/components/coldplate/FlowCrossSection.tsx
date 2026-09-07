@@ -47,8 +47,12 @@ export const FlowCrossSection: React.FC = () => {
       const chY = cy - chH / 2;
 
       // 1. Draw Cold Plate Cross-Section Channel Housing
-      ctx.fillStyle = '#060a12';
-      ctx.strokeStyle = '#1e293b';
+      // 0. Detect active theme
+      const isDark = document.documentElement.classList.contains('dark');
+
+      // 1. Channel Housing Background
+      ctx.fillStyle = isDark ? '#060a12' : '#F1F5F9';
+      ctx.strokeStyle = isDark ? '#1e293b' : '#94A3B8';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(chX, chY, chW, chH, 12);
@@ -84,9 +88,9 @@ export const FlowCrossSection: React.FC = () => {
       if (viewMode === 'thermal' || viewMode === 'normal') {
         const pulse = 0.8 + Math.sin(frame * 4) * 0.2;
         const grad = ctx.createLinearGradient(cx, chY + chH - 24, cx, chY + 20);
-        grad.addColorStop(0, `rgba(255, 59, 48, ${0.8 * pulse})`);
-        grad.addColorStop(0.5, `rgba(255, 149, 0, ${0.4 * pulse})`);
-        grad.addColorStop(1, 'rgba(0, 240, 255, 0.05)');
+        grad.addColorStop(0, isDark ? `rgba(255, 59, 48, ${0.8 * pulse})` : `rgba(220, 38, 38, ${0.75 * pulse})`);
+        grad.addColorStop(0.5, isDark ? `rgba(255, 149, 0, ${0.4 * pulse})` : `rgba(217, 119, 6, ${0.35 * pulse})`);
+        grad.addColorStop(1, isDark ? 'rgba(0, 240, 255, 0.05)' : 'rgba(2, 132, 199, 0.05)');
 
         ctx.fillStyle = grad;
         ctx.fillRect(coreStartX, chY + 16, coreEndX - coreStartX, chH - 40);
@@ -114,14 +118,16 @@ export const FlowCrossSection: React.FC = () => {
 
           // Compute color depending on X position and View Mode
           const progress = (p.x - chX) / chW;
-          let color = '#00F0FF';
+          let color = isDark ? '#00F0FF' : '#0284C7';
 
           if (viewMode === 'thermal') {
-            if (progress < 0.35) color = '#00F0FF'; // Cold inlet
-            else if (progress < 0.65) color = '#FF9500'; // Absorbing heat in Zone A
-            else color = '#FF3B30'; // Hot discharge
+            if (progress < 0.35) color = isDark ? '#00F0FF' : '#0284C7'; // Cold inlet
+            else if (progress < 0.65) color = isDark ? '#FF9500' : '#D97706'; // Absorbing heat in Zone A
+            else color = isDark ? '#FF3B30' : '#DC2626'; // Hot discharge
           } else if (viewMode === 'cross-section') {
-            color = inCore ? '#00F0FF' : 'rgba(0, 240, 255, 0.4)';
+            color = inCore 
+              ? (isDark ? '#00F0FF' : '#0284C7') 
+              : (isDark ? 'rgba(0, 240, 255, 0.4)' : 'rgba(2, 132, 199, 0.45)');
           }
 
           ctx.fillStyle = color;
@@ -132,12 +138,12 @@ export const FlowCrossSection: React.FC = () => {
       }
 
       // 5. Inlet & Outlet annotations
-      ctx.fillStyle = '#00F0FF';
+      ctx.fillStyle = isDark ? '#00F0FF' : '#0284C7';
       ctx.font = 'bold 11px monospace';
       ctx.textAlign = 'left';
       ctx.fillText('◀ COOLANT INLET (25.0°C)', chX + 12, chY - 10);
 
-      ctx.fillStyle = '#FF3B30';
+      ctx.fillStyle = isDark ? '#FF3B30' : '#DC2626';
       ctx.textAlign = 'right';
       ctx.fillText('HEATED OUTLET (37.2°C) ▶', chX + chW - 12, chY - 10);
 

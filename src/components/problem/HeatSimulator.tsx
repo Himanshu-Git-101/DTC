@@ -43,9 +43,12 @@ export const HeatSimulator: React.FC = () => {
       const dieX = cx - dieW / 2;
       const dieY = cy - dieH / 2;
 
+      // Detect active theme
+      const isDark = document.documentElement.classList.contains('dark');
+
       // 1. Draw SXM5 PCB Carrier Base
-      ctx.fillStyle = '#0a0e17';
-      ctx.strokeStyle = '#1e293b';
+      ctx.fillStyle = isDark ? '#0a0e17' : '#E2E8F0';
+      ctx.strokeStyle = isDark ? '#1e293b' : '#94A3B8';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.roundRect(dieX - 20, dieY - 20, dieW + 40, dieH + 40, 12);
@@ -53,7 +56,7 @@ export const HeatSimulator: React.FC = () => {
       ctx.stroke();
 
       // PCB Grid
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+      ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(15, 23, 42, 0.05)';
       ctx.lineWidth = 1;
       for (let x = dieX - 10; x < dieX + dieW + 10; x += 20) {
         ctx.beginPath();
