@@ -144,22 +144,34 @@ export const FlowCrossSection: React.FC = () => {
         });
       }
 
-      // 5. Inlet & Outlet annotations
-      ctx.fillStyle = isDark ? '#00F0FF' : '#0284c7';
+      // 5. Inlet & Outlet annotations with collision guard
       ctx.font = 'bold 11px monospace';
+      const inTextFull = '◀ COOLANT INLET (25.0°C)';
+      const outTextFull = 'WARMED DISCHARGE (37.2°C) ▶';
+      const inTextShort = '◀ INLET 25°C';
+      const outTextShort = 'OUTLET 37.2°C ▶';
+
+      const inW = ctx.measureText(inTextFull).width;
+      const outW = ctx.measureText(outTextFull).width;
+      const isNarrow = chW < inW + outW + 30;
+
+      ctx.fillStyle = isDark ? '#00F0FF' : '#0284c7';
       ctx.textAlign = 'left';
-      ctx.fillText('◀ COOLANT INLET (25.0°C)', chX + 12, chY - 10);
+      ctx.fillText(isNarrow ? inTextShort : inTextFull, chX + 12, chY - 10);
 
       ctx.fillStyle = isDark ? '#FF3B30' : '#dc2626';
-      ctx.font = 'bold 11px monospace';
       ctx.textAlign = 'right';
-      ctx.fillText('WARMED DISCHARGE (37.2°C) ▶', chX + chW - 12, chY - 10);
+      ctx.fillText(isNarrow ? outTextShort : outTextFull, chX + chW - 12, chY - 10);
 
       // 6. Microchannel Dimensions Callouts
       ctx.fillStyle = isDark ? '#64748B' : '#526174';
       ctx.font = '9px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('Channel Width w_c = 150 µm | Fin Width w_fin = 100 µm | Height H = 1.2 mm', cx, chY + 12);
+      if (chW < 520) {
+        ctx.fillText('w_c = 150µm | w_fin = 100µm | H = 1.2mm', cx, chY + 12);
+      } else {
+        ctx.fillText('Channel Width w_c = 150 µm | Fin Width w_fin = 100 µm | Height H = 1.2 mm', cx, chY + 12);
+      }
 
       animId = requestAnimationFrame(render);
     };

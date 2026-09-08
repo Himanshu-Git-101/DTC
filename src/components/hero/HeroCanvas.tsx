@@ -282,15 +282,40 @@ export const HeroCanvas: React.FC = () => {
         }
       }
 
-      // HUD Telemetry overlay labels on canvas
+      // HUD Telemetry overlay labels on canvas with responsive collision protection
+      ctx.font = 'bold 10px monospace';
+      const inletTextFull = 'COOLANT INLET: 25.0°C | PG25 @ 1.2 LPM';
+      const outletTextFull = 'COOLANT OUTLET: 37.2°C | 700W EXTRACTED';
+      const inletTextShort = 'INLET: 25.0°C (1.2 LPM)';
+      const outletTextShort = 'OUTLET: 37.2°C (700W)';
+      const inletTextMini = 'IN: 25.0°C';
+      const outletTextMini = 'OUT: 37.2°C';
+
+      const inletW = ctx.measureText(inletTextFull).width;
+      const outletW = ctx.measureText(outletTextFull).width;
+      const totalRequiredW = inletW + outletW + 28; // safety buffer
+
+      let inletText = inletTextFull;
+      let outletText = outletTextFull;
+
+      if (chipW < totalRequiredW) {
+        const shortRequiredW = ctx.measureText(inletTextShort).width + ctx.measureText(outletTextShort).width + 16;
+        if (chipW >= shortRequiredW) {
+          inletText = inletTextShort;
+          outletText = outletTextShort;
+        } else {
+          inletText = inletTextMini;
+          outletText = outletTextMini;
+        }
+      }
+
       ctx.textAlign = 'left';
       ctx.fillStyle = isDark ? 'rgba(0, 240, 255, 0.95)' : '#0284c7';
-      ctx.font = 'bold 10px monospace';
-      ctx.fillText('COOLANT INLET: 25.0°C | PG25 @ 1.2 LPM', chipX, chipY - 24);
+      ctx.fillText(inletText, chipX, chipY - 24);
 
       ctx.textAlign = 'right';
       ctx.fillStyle = isDark ? 'rgba(255, 59, 48, 0.95)' : '#dc2626';
-      ctx.fillText('COOLANT OUTLET: 37.2°C | 700W EXTRACTED', chipX + chipW, chipY - 24);
+      ctx.fillText(outletText, chipX + chipW, chipY - 24);
 
       animationFrameId = requestAnimationFrame(render);
     };
