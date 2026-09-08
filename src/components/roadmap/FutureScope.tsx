@@ -12,13 +12,13 @@ export const FutureScope: React.FC = () => {
           <Badge variant="cyan" size="md" className="mb-3">
             14 // RESEARCH ROADMAP
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#0B1220] dark:text-white tracking-tight">
             WHERE THIS CAN{' '}
-            <span className="bg-gradient-to-r from-dtc-cyan via-purple-400 to-dtc-hot bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 dark:from-dtc-cyan dark:via-purple-400 dark:to-dtc-hot bg-clip-text text-transparent">
               GO NEXT.
             </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-400 font-sans leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#526174] dark:text-slate-400 font-sans leading-relaxed">
             From single-phase copper microchannels to two-phase dielectric vaporization and silicon-integrated in-die microchannels, explore our long-term research horizon.
           </p>
         </div>

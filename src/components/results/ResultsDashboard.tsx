@@ -18,13 +18,13 @@ export const ResultsDashboard: React.FC = () => {
           <Badge variant="cyan" size="md" className="mb-3">
             09 // ANALYTICAL & SIMULATION VALIDATION
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#0B1220] dark:text-white tracking-tight">
             VALIDATING THE{' '}
-            <span className="bg-gradient-to-r from-dtc-cyan via-emerald-400 to-dtc-green bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-emerald-600 to-green-600 dark:from-dtc-cyan dark:via-emerald-400 dark:to-dtc-green bg-clip-text text-transparent">
               H-ASP ARCHITECTURE.
             </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-400 font-sans leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#526174] dark:text-slate-400 font-sans leading-relaxed">
             Analytical modeling and thermofluidic calculations prove that matching coolant mass flow directly to localized heat flux reduces peak silicon hotspot temperatures while cutting hydraulic pumping losses.
           </p>
         </div>

@@ -38,13 +38,13 @@ export const VirtualLab: React.FC = () => {
           <Badge variant="warm" size="md" className="mb-3" pulse>
             10 // INTERACTIVE ENGINEERING SANDBOX
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#0B1220] dark:text-white tracking-tight">
             VIRTUAL THERMAL{' '}
-            <span className="bg-gradient-to-r from-amber-400 via-dtc-cyan to-dtc-hot bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-500 via-blue-600 to-red-600 dark:from-amber-400 dark:via-dtc-cyan dark:to-dtc-hot bg-clip-text text-transparent">
               ENGINEERING LAB.
             </span>
           </h2>
-          <p className="mt-4 text-slate-400 font-sans leading-relaxed">
+          <p className="mt-4 text-[#526174] dark:text-slate-400 font-sans leading-relaxed">
             Adjust operating flow rates, accelerator workloads, and channel densities to observe real-time dynamic thermal resistance, pressure drop, and junction temperatures.
           </p>
         </div>

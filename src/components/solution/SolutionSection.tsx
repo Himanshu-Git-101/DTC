@@ -17,14 +17,14 @@ export const SolutionSection: React.FC = () => {
           <Badge variant="green" size="md" className="mb-3">
             04 // CORE ARCHITECTURAL INNOVATION
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#0B1220] dark:text-white tracking-tight">
             OUR APPROACH:{' '}
-            <span className="bg-gradient-to-r from-dtc-cyan to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-dtc-cyan dark:to-blue-400 bg-clip-text text-transparent">
               H-ASP COLD PLATE.
             </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-400 font-sans leading-relaxed">
-            Rather than distributing coolant uniformly across the whole package, the <strong className="text-slate-200">Heterogeneous Area-Specific Cold Plate (H-ASP)</strong> utilizes a co-designed passive manifold that enforces a <strong className="text-dtc-cyan">70-20-10 flow split</strong> tailored directly to the spatial heat flux profile of the NVIDIA H100 SXM5 GPU.
+          <p className="mt-4 text-base sm:text-lg text-[#526174] dark:text-slate-400 font-sans leading-relaxed">
+            Rather than distributing coolant uniformly across the whole package, the <strong className="text-[#0B1220] dark:text-slate-200">Heterogeneous Area-Specific Cold Plate (H-ASP)</strong> utilizes a co-designed passive manifold that enforces a <strong className="text-blue-600 dark:text-dtc-cyan">70-20-10 flow split</strong> tailored directly to the spatial heat flux profile of the NVIDIA H100 SXM5 GPU.
           </p>
         </div>
 

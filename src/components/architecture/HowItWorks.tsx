@@ -25,13 +25,13 @@ export const HowItWorks: React.FC = () => {
           <Badge variant="cyan" size="md" className="mb-3">
             08 // OPERATIONAL SEQUENCE
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#0B1220] dark:text-white tracking-tight">
             HOW IT{' '}
-            <span className="bg-gradient-to-r from-dtc-cyan via-blue-400 to-dtc-hot bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-red-600 dark:from-dtc-cyan dark:via-blue-400 dark:to-dtc-hot bg-clip-text text-transparent">
               WORKS.
             </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-400 font-sans leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#526174] dark:text-slate-400 font-sans leading-relaxed">
             Follow the micro-scale thermo-fluidic journey from 218 W/cm² transistor heat dissipation to closed-loop data center heat rejection.
           </p>
         </div>

@@ -22,13 +22,13 @@ export const TechStackShowcase: React.FC = () => {
           <Badge variant="cyan" size="md" className="mb-3">
             16 // WEB DEVELOPMENT INTERNSHIP PORTFOLIO SHOWCASE
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#0B1220] dark:text-white tracking-tight">
             BUILT WITH MODERN{' '}
-            <span className="bg-gradient-to-r from-dtc-cyan via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-dtc-cyan dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
               WEB TECHNOLOGIES.
             </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-400 font-sans leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#526174] dark:text-slate-400 font-sans leading-relaxed">
             This interactive engineering case-study website is built from the ground up to demonstrate advanced frontend engineering, 60fps real-time physics simulation, and state-of-the-art UI/UX design.
           </p>
         </div>

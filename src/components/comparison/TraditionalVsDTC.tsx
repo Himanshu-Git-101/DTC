@@ -147,25 +147,25 @@ export const TraditionalVsDTC: React.FC = () => {
 
               {/* Stack items */}
               <div className="space-y-3 font-mono text-xs">
-                <div className="p-3.5 rounded-lg bg-dtc-hot/20 border border-dtc-hot/40 text-center font-bold text-dtc-hot">
+                <div className="p-3.5 rounded-lg bg-red-500/15 border border-red-300 dark:border-dtc-hot/40 text-center font-bold text-red-700 dark:text-dtc-hot">
                   AI ACCELERATOR DIE (GH100 SILICON)
                 </div>
-                <div className="flex justify-center text-dtc-cyan">
+                <div className="flex justify-center text-blue-600 dark:text-dtc-cyan">
                   <ArrowDown className="w-4 h-4 animate-bounce" />
                 </div>
-                <div className="p-3 rounded-lg bg-slate-800 border border-dtc-cyan/30 text-center text-slate-200">
+                <div className="p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-dtc-cyan/30 text-center text-slate-800 dark:text-slate-200 font-semibold">
                   Micro-Thin Indium / Liquid Metal Interface
                 </div>
-                <div className="flex justify-center text-dtc-cyan">
+                <div className="flex justify-center text-blue-600 dark:text-dtc-cyan">
                   <ArrowDown className="w-4 h-4" />
                 </div>
-                <div className="p-4 rounded-lg bg-gradient-to-r from-blue-900/60 via-dtc-cyan/20 to-blue-900/60 border border-dtc-cyan text-center font-bold text-dtc-cyan shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+                <div className="p-4 rounded-lg bg-blue-50 border border-blue-500/40 text-center font-bold text-blue-700 shadow-sm dark:bg-gradient-to-r dark:from-blue-900/60 dark:via-dtc-cyan/20 dark:to-blue-900/60 dark:border-dtc-cyan dark:text-dtc-cyan dark:shadow-[0_0_15px_rgba(0,240,255,0.2)]">
                   3D COPPER COLD PLATE (70/20/10 MICROCHANNELS)
                 </div>
-                <div className="flex justify-center text-dtc-cyan">
+                <div className="flex justify-center text-blue-600 dark:text-dtc-cyan">
                   <ArrowDown className="w-4 h-4" />
                 </div>
-                <div className="p-4 rounded-lg bg-dtc-cyan text-black font-bold text-center shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+                <div className="p-4 rounded-lg bg-blue-600 text-white font-bold text-center shadow-md dark:bg-dtc-cyan dark:text-black dark:shadow-[0_0_20px_rgba(0,240,255,0.4)]">
                   DIRECT LIQUID COOLANT FLOW (PG25 @ 25°C)
                 </div>
               </div>
